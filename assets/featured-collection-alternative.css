@@ -1,0 +1,114 @@
+.section--top-wrapper {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+}
+
+.section--heading-wrapper .section--heading {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 0px;
+  padding: 0;
+}
+
+.section--heading-wrapper .section--heading.h1 {
+  
+  font-family: var(--font-primary-family);
+}
+
+.collection--link {
+  margin: 0px 7px;
+}
+
+#featured__collection .section--top-wrapper .collection--link a {
+  min-width: unset;
+}
+
+.section--bottom-wrapper {
+/*   padding: 0px 20px; */
+  overflow: visible;
+  position: relative;
+}
+
+#featured__collection .section--bottom-wrapper .swiper-wrapper .product--card img {
+  height: 100%;
+}
+
+#featured__collection .swiper {
+  overflow: hidden;
+/*   padding-right: 16px; */
+  padding: 0 30px !important;
+  margin-left: -63px;
+/*   margin: 0 -20px; */
+}
+
+#featured__collection .swiper-slide {
+  width: 70%;
+}
+
+.slider-control svg {
+  width: 40px;
+  height: 40px;
+}
+
+.slide-button-prev {
+  position: absolute;
+  top: 40%;
+  left: -10px;
+  transform: translateY(-50%);
+  display: none;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.slide-button-next {
+  position: absolute;
+  top: 40%;
+  right: -10px;
+  transform: translateY(-50%);
+  display: none;
+  z-index: 2;
+  cursor: pointer;
+}
+
+ 
+
+@media screen and (min-width: 750px) {
+  .section--top-wrapper {
+    padding: 0;
+    margin-bottom: 40px;
+  }
+  .section--heading-wrapper .section--heading {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 30px;
+  }
+  
+  #featured__collection .swiper {
+    margin-left: 0;
+  }
+  
+  #featured__collection .swiper-slide {
+    width: unset;
+    max-width: 425px;
+    margin-right: 30px;
+  }
+
+  #featured__collection .product--card {
+    
+  }
+  
+  .slide-button-prev, .slide-button-next {
+    display: flex;
+  }
+  
+  .slide-button-prev.swiper-button-disabled, .slide-button-next.swiper-button-disabled {
+    display: none;
+  }
+  
+  
+}

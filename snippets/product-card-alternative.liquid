@@ -1,0 +1,244 @@
+{% liquid
+  assign colors = product.options_by_name['Color'].values
+  assign color_badge = ""
+  
+  assign image_primary = product.featured_image
+  assign image_secondary = nil
+  
+  assign color_option_index = 0
+  assign color = ""
+  
+  assign price = 0
+  assign compare_at_price = 0
+  
+  if colors
+    assign color_options_count = 0
+    for color in colors
+      if forloop.first
+        if forloop.length == 1
+          assign color_badge = "1 Color"
+        else
+          assign color_badge = forloop.length | minus: 1 | prepend: "+" | append: " Colors"
+        endif
+        assign color_options_count = forloop.length | minus: 1
+        break
+      endif
+    endfor
+  endif
+  
+  if product.first_available_variant.featured_image
+    assign image_primary = product.first_available_variant.featured_image
+  endif
+  
+  for image in product.images
+    if forloop.length == 1
+      break
+    else
+      if forloop.index == 2
+        assign image_secondary = image
+        break
+      endif
+    endif
+  endfor
+  
+  for option in product.options
+    if option == "Color" or option == "color"
+      assign color_option_index = forloop.index
+      break
+    endif
+  endfor
+  
+  if product.first_available_variant
+    if color_option_index == 1
+      assign color = product.first_available_variant.option1
+    elsif color_option_index == 2
+      assign color = product.first_available_variant.option2
+    else
+      assign color = product.first_available_variant.option3
+    endif
+    
+    assign price = product.first_available_variant.price
+    if product.first_available_variant.compare_at_price
+      assign compare_at_price = product.first_available_variant.compare_at_price
+    endif
+  else
+  	for option in product.options_with_values
+      if forloop.index == color_option_index
+        for value in option.values
+          assign color = value
+          break
+        endfor
+        break
+      endif
+    endfor
+    
+    assign price = product.price
+    if product.compare_at_price
+      assign compare_at_price = product.compare_at_price
+    endif
+  endif
+  
+  assign new_badge = ""
+  assign badges = ""
+  for tag in product.tags
+    assign ltag = tag | downcase
+    if ltag contains 'badge'
+      if ltag contains 'new'
+        assign new_badge = ltag | replace: 'badge: ', ''
+      else
+      	assign _badges = ltag | replace: 'badge: ', '' | prepend: ","
+        assign badges = badges | append: _badges
+      endif
+    endif
+  endfor
+  
+  assign start = 100000
+  assign end = 999999
+  assign diff = end | minus: start
+  assign form_id = "now" | date: "%N" | modulo: diff | plus: start
+  
+  assign swatch_master = all_products['swatch']
+%}
+
+<div class="product--card" id="{{ form_id }}">
+  <a href="{{ product.url }}" class="product--link">
+    <div class="product--media-wrapper">
+      <div class="product--card-media clip--corner clip--corner-corner-10">
+        <div class="product--media-featured{% if image_secondary != nil %} has--media-secondary{% endif %}">
+          <figure>
+            {% render 'image-lazy', image: image_primary %}
+          </figure>
+        </div>
+        {% if image_secondary %}
+          <div class="product--media-secondary">
+            <figure>
+              {% render 'image-lazy', image: image_secondary %}
+            </figure>
+            
+          </div>
+        {% endif %}
+      </div>
+      <div class="product--badge-wrapper">
+        <span class="badge color--badge">{{ color_badge | escape }}</span>
+        {% if new_badge != "" %}
+          <span class="badge new--badge">{{ new_badge | escape }}</span>
+        {% endif %}
+      </div>
+      <component-wishlist>
+        <div class="wishlist--container" id="add-to-wishlist--{{ product.id }}" data-product-handle="{{ product.handle }}">
+          <div class="wishlist--wrapper">
+            <div class="wishlist-icon">
+              <svg class="heart">
+                <use href="#heart"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </component-wishlist>
+    </div>
+  </a>
+  <product-card-variants id="{{ form_id }}">
+    <script id="swatchData" type="application/json">
+      {{ swatch_master.metafields.swatch_meta.swatch }}
+    </script>
+    <div class="product--details-wrapper" id="wrapper-{{ form_id }}">
+      <div class="product--details clip--corner clip--corner-corner-10">
+        <div class="product--meta">
+          <h2 class="product--title">{{ product.title | truncate: 20 }}</h2>
+          <p class="product--color-option">{{ color }}</p>
+          <p class="product--price-wrapper">
+            <span class="price">{{ price | money_with_currency }}</span>
+            {% if compare_at_price and compare_at_price > price %}
+              <span class="regular--price">{{ compare_at_price | money_with_currency }}</span>
+            {% endif %}
+          </p>
+        </div>
+        <form id="form--{{ form_id }}">
+          <script type="application/json" data-variants>
+            {{ product.variants | json }}
+          </script>
+          <div class="product--options-container">
+            <div class="product--options-wrapper">
+              {% for option in product.options_with_values %}
+                {% assign name = option.name | handle %}
+                {% if name == 'color' or name == 'colour' %}
+                  <div class="option option-{{ option.position }}{% if forloop.first == true %} active{% endif %}"
+                       data-position="{{ option.position }}"
+                       data-option="{{ name }}">
+                    <fieldset>
+                      <h2 class="option--heading">Add | {{ option.name }}</h2>
+                      <div class="form--input-group">
+                        {% for value in option.values %}
+                          <div class="form--input">
+                            {% style %}
+                              span[data-id="{{ form_id }}-{{ name }}-{{ value | handle }}"].swatch--info::before {
+                                content: "{{ value | escape }}";
+                              }
+                            {% endstyle %}
+                            <input name="{{ name }}"
+                                   id="{{ form_id }}-{{ name }}-{{ value | handle }}"
+                                   type="radio" value="{{ value | escape }}"
+                                   data-position="{{ option.position }}">
+                            <label for="{{ form_id }}-{{ name }}-{{ value | handle }}"
+                                   data-option-for="{{ name }}"
+                                   data-value="{{ value | escape }}"
+                                   data-id="{{ form_id }}-{{ name }}-{{ value | handle }}"
+                                   class="color--swatch-label">
+                              {{ value | escape | truncate: 2, "" }}
+                            </label>
+                            <span class="swatch--info" data-id="{{ form_id }}-{{ name }}-{{ value | handle }}"></span>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </fieldset>
+                  </div>
+                {% else %}
+                  <div class="option option-{{ option.position }}{% if forloop.first == true %} active{% endif %}"
+                       data-position="{{ option.position }}"
+                       data-option="{{ name }}">
+                    <fieldset>
+                      <h2 class="option--heading">Add | {{ option.name }}</h2>
+                      <div class="form--input-group">
+                        {% for value in option.values %}
+                        <div class="form--input">
+                          <input name="{{ name }}" id="{{ form_id }}-{{ name }}-{{ value | handle }}" type="radio" value="{{ value | escape }}" data-position="{{ option.position }}">
+                          <label for="{{ form_id }}-{{ name }}-{{ value | handle }}"
+                                 data-option-for="{{ name }}"
+                                 data-value="{{ value | escape }}">
+                            {{ value | escape }}
+                          </label>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </fieldset>
+                  </div>
+                {% endif %}
+              {% endfor %}
+              <div class="success--notification">
+                <h2 class="message">Item Added!</h2>
+                <div class="atc--success-icon">
+                  {% render 'icon-library', icon: 'atc-success' %}
+                </div>
+              </div>
+            </div>
+            <div class="step--back-button">
+              <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                   viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                <g>
+                  <g>
+                    <path d="M492,236H68.442l70.164-69.824c7.829-7.792,7.859-20.455,0.067-28.284c-7.792-7.83-20.456-7.859-28.285-0.068
+                             l-104.504,104c-0.007,0.006-0.012,0.013-0.018,0.019c-7.809,7.792-7.834,20.496-0.002,28.314c0.007,0.006,0.012,0.013,0.018,0.019
+                             l104.504,104c7.828,7.79,20.492,7.763,28.285-0.068c7.792-7.829,7.762-20.492-0.067-28.284L68.442,276H492
+                             c11.046,0,20-8.954,20-20C512,244.954,503.046,236,492,236z"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+      
+    
+  </product-card-variants>
+</div>

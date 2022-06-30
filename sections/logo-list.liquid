@@ -1,0 +1,207 @@
+{%- liquid
+  assign section_id = '#shopify-section-' | append: section.id
+  assign section_spacing = 28
+  assign section_spacing_large = 40
+  assign gutter_spacing = section.settings.gutter_spacing
+  assign background_color = section.settings.background_color
+  assign text_color = section.settings.text_color
+  
+  if section.blocks.size != 0
+  	if section.blocks.size > section.settings.columns
+     	assign block_size = section.settings.columns
+     else 
+     	assign block_size = section.blocks.size
+    endif 
+  else 
+  	assign block_size = 1
+  endif
+  
+  if gutter_spacing >= section_spacing
+    assign section_spacing = gutter_spacing
+  endif
+
+  if gutter_spacing >= section_spacing_large
+    assign section_spacing_large = gutter_spacing
+  endif
+-%}
+
+<div class="collection--logo-list section--margin-default"
+     style="--gutter-spacing: {{ gutter_spacing }}px;
+            --section-spacing: {{ section_spacing }}px;
+            --section-spacing-large: {{ section_spacing_large }}px;
+            --section-background-color: {{ background_color }};
+            --section-text-color: {{ text_color }};
+            --section-block-size: {{ block_size }}">
+  <div class="{% if section.settings.full_width %}page-width-tablet{% else %}page-width{% endif %}">
+    <div class="section__inner clip--corner clip--corner-corner-30">
+      <div class="logo-list__content">
+        {%- unless section.settings.title == blank -%}
+        <h2 class="section--heading h1">{{ section.settings.title }}</h2>
+        {%- endunless -%}
+        <div class="logo-list__list">
+          {%- for block in section.blocks -%}
+            {% render 'logo-list-item' with
+              image: block.settings.image,
+              image_svg: block.settings.image_svg,
+              title: block.settings.title,
+              link: block.settings.link,
+            %}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  {{section_id}} .collection--logo-list .section__inner {
+    background-color: var(--section-background-color);
+    text-align: center;
+  }
+  {{section_id}} .collection--logo-list .logo-list__content {
+    padding: var(--section-spacing);
+  }
+  {{section_id}} .collection--logo-list .logo-list__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: calc(var(--gutter-spacing) / -4);
+  }
+  {{section_id}} .collection--logo-list .logo-list__item {
+    width: 50%;
+    padding: calc(var(--gutter-spacing) / 4);
+    text-decoration: none;
+  }
+  {{section_id}} .collection--logo-list .logo-list-item--text,.collection--logo-list .logo-list__content .section--heading {
+    color: var(--section-text-color);
+  }
+  {{section_id}} .logo-list__content .section--heading {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  {{section_id}} .logo-list__content .logo-list-item--text {
+    font-family: var(--font-heading-family);
+    font-weight: 700;
+  }
+  @media (min-width: 45em) {
+    {{section_id}} .collection--logo-list .logo-list__content {
+      padding: var(--section-spacing-large);
+        }
+    {{section_id}} .collection--logo-list .logo-list__list {
+      margin: calc((var(--gutter-spacing) / 2) * -1);
+        }
+    {{section_id}} .collection--logo-list .logo-list__item {
+      width: calc(100% / var(--section-block-size));
+      padding: calc(var(--gutter-spacing) / 2);
+      }
+  }
+{%- endstyle -%}
+
+{% schema %}
+  {
+    "name": "t:sections.logo_list.name",
+    "tag": "section",
+    "class": "shopify-section--logo-list",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "t:sections.logo_list.settings.full_width.label",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "columns",
+        "label": "t:sections.logo_list.settings.columns.label",
+        "min": 3,
+        "max": 6,
+        "step": 1,
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "gutter_spacing",
+        "label": "t:sections.logo_list.settings.gutter_spacing.label",
+        "unit": "px",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 20
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "t:sections.logo_list.settings.title.label",
+        "default": "As featured in"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.logo_list.settings.content.label"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "t:sections.logo_list.settings.background_color.label",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label":  "t:sections.logo_list.settings.text_color.label",
+        "default": "#88cf41"
+      }
+    ],
+    "max_blocks": 36,
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "t:sections.logo_list.blocks.logo.name",
+        "settings": [
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "t:sections.logo_list.blocks.logo.settings.image.label"
+          },
+		  {
+            "id": "image_svg",
+            "type": "html",
+            "label": "t:sections.logo_list.blocks.logo.settings.image_svg.label"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "t:sections.logo_list.blocks.logo.settings.title.label"
+          },
+          {
+            "id": "link",
+            "type": "url",
+            "label": "t:sections.logo_list.blocks.logo.settings.link.label"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.logo_list.presets.name",
+        "blocks": [
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

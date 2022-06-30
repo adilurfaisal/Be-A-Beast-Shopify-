@@ -1,0 +1,86 @@
+{{ 'ajax-collection.js' | asset_url | script_tag }}
+<style>
+  .product--grid-wrapper ul#ProductGrid {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .product--grid {
+    display: grid;
+    grid-template-columns: repeat(2, calc((100% - 20px) / 2));
+    gap: 20px;
+  }
+  
+  #ProductGrid .product--card {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  #Pagination {
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .product--grid {
+      grid-template-columns: repeat(4, calc((100% - (30px * 3))/ 4));
+      gap: 30px;
+    }
+  }
+  
+  @media screen and (min-width: 750px) and (max-width: 1023px) {
+    .product--grid {
+      grid-template-columns: repeat(3, calc((100% - (20px * 2))/ 3));
+      gap: 20px;
+    }
+  }
+</style>
+<div id="CollectionGridContainer">
+  <div class="page--full">
+    {%- paginate collection.products by 12 -%}
+      {%- if collection.products.size == 0 -%}
+        <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
+          <div class="loading-overlay gradient"></div>
+          <div class="title-wrapper center">
+            <h2 class="title title--primary">
+              {{ 'sections.collection_template.empty' | t }}<br>
+              {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: "underlined-link link" }}
+            </h2>
+          </div>
+        </div>
+      {%- else -%}
+        <div class="product--grid-wrapper">
+          <ul id="ProductGrid" class="product--grid">
+            {% for product in collection.products %}
+            {% unless product.handle == 'swatch' %}
+              <li class="product--grid-item">
+                {% render 'product-card-alternative', product: product %}
+              </li>
+            {% endunless %}
+            {% endfor %}
+          </ul>
+        </div>
+        {%- if paginate.pages > 1 -%}
+        <div id="Pagination">
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="button button--primary skewed-border button-custom">Load More</a>
+          {% endif %}
+        </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</div>
+{% render 'collection-filter', results: collection %}
+{% schema %}
+  {
+    "name": "Product Grid",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

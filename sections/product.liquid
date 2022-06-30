@@ -1,0 +1,34 @@
+<section class="page-width section-{{ section.id }}-padding">
+  <div class="product grid grid--1-col grid--2-col-tablet">
+    <div class="grid__item product__media-wrapper">
+      Media to go
+    </div>
+    <div class="product__info-wrapper grid__item">
+      <div id="ProductInfo-{{ section.id }}" class="product__info-container product__info-container--sticky">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Product Information",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "@app"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

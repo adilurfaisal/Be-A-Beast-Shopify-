@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner",
+      "settings": {
+        "color_scheme": "dark",
+        "adaptive__height": true,
+        "banner__height": 640,
+        "default_image": "shopify:\/\/shop_images\/collection_banner_default.jpg"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-grid",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid"
+  ]
+}

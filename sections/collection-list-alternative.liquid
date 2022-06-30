@@ -1,0 +1,147 @@
+{{ 'collection-list-alternative.css' | asset_url | stylesheet_tag }}
+<!-- section/collection-list-alternative.liquid -->
+<div class="collection--list-wrapper section--margin-default{% if section.settings.color_scheme == 'dark' %} color--scheme--dark{% else %} color--scheme--light{% endif %}">
+  <div class="section-{{ section.id }} {% unless section.settings.full_width %}page-width-tablet{% endunless %}">
+    <div class="grid grid--1-col grid--2-col-tablet grid--gapless-row-mobile">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'collection' %}
+          <div class="grid__item collection--list-item-wrapper">
+            <div class="image--container">
+              <div class="image--wrapper">
+                
+                <div class="collection--list-item">
+                  <div class="clip--corner">
+                    <div class="collection--image">
+                      {%- assign image = block.settings.collection_image -%}
+                      {% if image %}
+                      <figure>
+                        {% render 'image-lazy', image: image %}
+                      </figure>
+                      {% else %}
+                        {{ 'collection-1' | placeholder_svg_tag }}
+                      {% endif %}
+                    </div>
+                    <div class="collection--info">
+                      {% if block.settings.title != blank %}
+                        <h2 class="collection--title">{{ block.settings.title }}</h2>
+                      {% endif %}
+                      {% if block.settings.subtitle != blank %}
+                        <p class="collection--subtitle">{{ block.settings.subtitle }}</p>
+                      {% endif %}
+                      {% if block.settings.button_primary_text != blank or block.settings.button_secondary_text != blank %}
+                        {% if block.settings.button_primary_url != blank or block.settings.button_secondary_url != blank %}
+                          <div class="collection--button-group">
+                            {% if block.settings.button_primary_text != blank and block.settings.button_primary_url != blank %}
+                              <a href="{{ block.settings.button_primary_url }}" class="button button--primary skewed-border button-custom">{{ block.settings.button_primary_text }}</a>
+                            {% endif %}
+                            {% if block.settings.button_secondary_text != blank and block.settings.button_secondary_url != blank %}
+                              <a href="{{ block.settings.button_secondary_url }}" class="button button--primary skewed-border button-custom">{{ block.settings.button_secondary_text }}</a>
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+  
+</div>
+{% schema %}
+  {
+    "name": "Collection List",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full Page Width",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "color_scheme",
+        "label": "Color Scheme",
+        "options": [
+          {
+            "value": "dark",
+            "label": "Dark"
+          },
+          {
+            "value": "light",
+            "label": "Light"
+          }
+        ],
+        "default": "dark"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "limit": 6,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "collection_image",
+            "label": "Collection Image"
+          },          
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Collection Heading"
+          },
+          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Collection Subtitle"
+          },          
+          {
+            "type": "header",
+            "content": "Button Group Setting"
+          },
+          {
+            "type": "text",
+            "id": "button_primary_text",
+            "label": "Button Primary Text"
+          },
+          {
+            "type": "url",
+            "id": "button_primary_url",
+            "label": "Button Primary Text"
+          },
+          {
+            "type": "text",
+            "id": "button_secondary_text",
+            "label": "Button Primary Text"
+          },
+          {
+            "type": "url",
+            "id": "button_secondary_url",
+            "label": "Button Primary Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection List - Alternative",
+        "settings": {
+          "full_width": false
+        }
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

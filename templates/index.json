@@ -1,0 +1,274 @@
+{
+  "sections": {
+    "16461901444a44a225": {
+      "type": "image-split",
+      "settings": {
+        "section_height": 670,
+        "section_image_left": "shopify:\/\/shop_images\/image_split_left-min.jpg",
+        "left_btn_text": "Shop Hers",
+        "left_btn_url": "shopify:\/\/collections\/all",
+        "section_image_right": "shopify:\/\/shop_images\/image_split_right-min.jpg",
+        "right_btn_text": "Shop His",
+        "right_btn_url": "shopify:\/\/collections\/all",
+        "color_scheme": "light"
+      }
+    },
+    "164649006238be77d6": {
+      "type": "featured-collection-alternative",
+      "settings": {
+        "heading": "Featured Items",
+        "collection": "frontpage",
+        "color_scheme": "dark",
+        "slide_to_show": 1
+      }
+    },
+    "16461935919aaaae1d": {
+      "type": "collection-list-alternative",
+      "blocks": {
+        "cadbeac9-7ed0-4ca1-989f-211d55aaa380": {
+          "type": "collection",
+          "settings": {
+            "collection_image": "shopify:\/\/shop_images\/collection__list_1-min.jpg",
+            "title": "Hoodies",
+            "subtitle": "WINTER ALLY",
+            "button_primary_text": "Shop Hers",
+            "button_primary_url": "shopify:\/\/collections",
+            "button_secondary_text": "Shop His",
+            "button_secondary_url": "shopify:\/\/collections"
+          }
+        },
+        "7b8b6c75-9eb1-4c42-b100-52da2a8ce85b": {
+          "type": "collection",
+          "settings": {
+            "collection_image": "shopify:\/\/shop_images\/collection__list_2-min.jpg",
+            "title": "Joggers",
+            "subtitle": "30%-50% Off - Limited Stock",
+            "button_primary_text": "Shop Hers",
+            "button_primary_url": "shopify:\/\/collections",
+            "button_secondary_text": "Shop His",
+            "button_secondary_url": "shopify:\/\/collections"
+          }
+        },
+        "756e68f6-e8f9-4859-bc61-91ad81c4397f": {
+          "type": "collection",
+          "settings": {
+            "collection_image": "shopify:\/\/shop_images\/collection__list_3-min.jpg",
+            "title": "Leggings",
+            "subtitle": "Ultra Comfy",
+            "button_primary_text": "Shop Now",
+            "button_primary_url": "shopify:\/\/collections",
+            "button_secondary_text": "",
+            "button_secondary_url": "shopify:\/\/collections"
+          }
+        },
+        "e168dc28-97ce-479c-b83b-1ba654993e96": {
+          "type": "collection",
+          "settings": {
+            "collection_image": "shopify:\/\/shop_images\/collection__list_4-min.jpg",
+            "title": "Sports Bra",
+            "subtitle": "Be Fearless",
+            "button_primary_text": "Shop Now",
+            "button_primary_url": "shopify:\/\/collections",
+            "button_secondary_text": "",
+            "button_secondary_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cadbeac9-7ed0-4ca1-989f-211d55aaa380",
+        "7b8b6c75-9eb1-4c42-b100-52da2a8ce85b",
+        "756e68f6-e8f9-4859-bc61-91ad81c4397f",
+        "e168dc28-97ce-479c-b83b-1ba654993e96"
+      ],
+      "settings": {
+        "full_width": false,
+        "color_scheme": "light"
+      }
+    },
+    "1646862956291d41f8": {
+      "type": "shop-the-look",
+      "blocks": {
+        "a1d89cbd-e165-4191-a302-3668dde2d198": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/shop_the_look_1.jpg",
+            "image_position": "right",
+            "pin_1_active": true,
+            "pin_top_1": 20,
+            "pin_left_1": 37,
+            "pin_scale_1": 1,
+            "product_1": "very-terry-cutoff",
+            "pin_2_active": true,
+            "pin_top_2": 36,
+            "pin_left_2": 55,
+            "pin_scale_2": 1,
+            "product_2": "very-terry-crop-cutoff",
+            "pin_3_active": true,
+            "pin_top_3": 53,
+            "pin_left_3": 36,
+            "pin_scale_3": 1,
+            "product_3": "verry-terry-jogger",
+            "pin_4_active": true,
+            "pin_top_4": 61,
+            "pin_left_4": 65,
+            "pin_scale_4": 1,
+            "product_4": "very-terry-jogger"
+          }
+        },
+        "2ef9269f-9784-480a-bf34-a0ef8756c61f": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/shop_the_look_2.jpg",
+            "image_position": "right",
+            "pin_1_active": true,
+            "pin_top_1": 37,
+            "pin_left_1": 37,
+            "pin_scale_1": 1,
+            "product_1": "very-terry-hoodie",
+            "pin_2_active": false,
+            "pin_top_2": 21,
+            "pin_left_2": 61,
+            "pin_scale_2": 1,
+            "product_2": "tract-skirt",
+            "pin_3_active": true,
+            "pin_top_3": 64,
+            "pin_left_3": 35,
+            "pin_scale_3": 1,
+            "product_3": "very-terry-jogger-for-women",
+            "pin_4_active": false,
+            "pin_top_4": 67,
+            "pin_left_4": 65,
+            "pin_scale_4": 1,
+            "product_4": "verry-terry-jogger"
+          }
+        }
+      },
+      "block_order": [
+        "a1d89cbd-e165-4191-a302-3668dde2d198",
+        "2ef9269f-9784-480a-bf34-a0ef8756c61f"
+      ],
+      "settings": {
+        "heading": "Shop The Look"
+      }
+    },
+    "16462964958d69258e": {
+      "type": "image-banner-alternative",
+      "blocks": {
+        "7abf4708-6fae-4829-98f5-76523e34123f": {
+          "type": "heading",
+          "settings": {
+            "heading": "UNLEASH YOUR INNER BEAST"
+          }
+        },
+        "c2e36259-510e-4d29-b9f6-c98eabd34343": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Be A Beast Fitness is a clothing brand engineered for the active lifestyle."
+          }
+        },
+        "969795b5-c576-4d3a-a10d-8bd25940b9e3": {
+          "type": "button",
+          "settings": {
+            "button_text": "OUR STORY",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "7abf4708-6fae-4829-98f5-76523e34123f",
+        "c2e36259-510e-4d29-b9f6-c98eabd34343",
+        "969795b5-c576-4d3a-a10d-8bd25940b9e3"
+      ],
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/image_banner-min.jpg",
+        "banner_image_mobile": "shopify:\/\/shop_images\/image_banner_mobile_min.jpg",
+        "image_overlay": true,
+        "image_overlay_opacity": 10,
+        "color_scheme": "light"
+      }
+    },
+    "16463781304bfb0e2c": {
+      "type": "instagram-shopping",
+      "blocks": {
+        "bdaac317-d628-4364-bef9-2a04c4822dbb": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_1.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "f260b3bd-3405-49ab-98a9-c5168e3cae3e": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_2.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "350ede86-3b8f-4767-8f4c-e8cc8ae25111": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_3.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "015a54f0-f441-43cc-8363-1cd06196a0cb": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_4.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "b4620b59-eb2e-49f0-9225-aa8944248738": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_5.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "6c57f168-50fd-4fc2-838f-d346c20aac2f": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_6.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "1219e06f-eaa0-4688-a76a-f5c1c52fc3cd": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_7.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        },
+        "cbcfc863-8874-4898-acb2-6efd6069658e": {
+          "type": "insta_post",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ig_8.jpg",
+            "post_url": "https:\/\/instagram.com"
+          }
+        }
+      },
+      "block_order": [
+        "bdaac317-d628-4364-bef9-2a04c4822dbb",
+        "f260b3bd-3405-49ab-98a9-c5168e3cae3e",
+        "350ede86-3b8f-4767-8f4c-e8cc8ae25111",
+        "015a54f0-f441-43cc-8363-1cd06196a0cb",
+        "b4620b59-eb2e-49f0-9225-aa8944248738",
+        "6c57f168-50fd-4fc2-838f-d346c20aac2f",
+        "1219e06f-eaa0-4688-a76a-f5c1c52fc3cd",
+        "cbcfc863-8874-4898-acb2-6efd6069658e"
+      ],
+      "settings": {
+        "heading": "FOLLOW US AT @beabeastfitness",
+        "color_scheme": "dark"
+      }
+    }
+  },
+  "order": [
+    "16461901444a44a225",
+    "164649006238be77d6",
+    "16461935919aaaae1d",
+    "1646862956291d41f8",
+    "16462964958d69258e",
+    "16463781304bfb0e2c"
+  ]
+}

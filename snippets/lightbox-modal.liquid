@@ -1,0 +1,311 @@
+<div class="lighbox-slider">
+
+    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"class="swiper custom-view-swiper">
+      <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+        <div class="swiper-slide clip--corner clip--corner-corner-20" style="width: 100%; height: 100%;" data-media-id="{{ media.id }}">
+          <figure class="zoom" onmousemove="zoom(event)" style="background-image: url({{ media.preview_image | img_url: '1445x' }})">
+                <img
+                  class="global-media-settings global-media-settings--no-shadow"
+                  srcset="{{ media.preview_image | img_url: '550x' }} 550w"
+                  sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+                  src="{{ media.preview_image | img_url: '1445x' }}"
+                  alt="{{ media.alt | escape }}"
+                  loading="lazy"
+                  width="1100"
+                  data-media-id="{{ media.id }}"
+                  {% if variant_image %}class="product__media-item--variant"{% endif %}
+                >
+          </figure>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  
+  	<div class="slider-left-ctl">
+      <div class="slider-button slider-button-prev slider-control">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.9998 0C12.1927 0 0 12.1927 0 25.9998C0 39.8068 12.1927 52 25.9998 52C39.8068 52 52 39.8068 52 25.9998C51.9844 12.1992 39.8008 0.0155639 25.9998 0ZM25.9998 48.4997C13.5734 48.4997 3.49984 38.4262 3.49984 25.9998C3.49984 13.5734 13.5734 3.49984 25.9998 3.49984C38.4262 3.49984 48.4997 13.5734 48.4997 25.9998C48.4855 38.4202 38.4202 48.4855 25.9998 48.4997Z" fill="black"/>
+          <path d="M22.529 16.0003C22.231 15.9937 21.9383 16.0801 21.6916 16.2476C21.445 16.4151 21.2567 16.6554 21.1528 16.9348C21.049 17.2143 21.0348 17.5191 21.1123 17.807C21.1897 18.0949 21.3549 18.3514 21.5849 18.5411L30.3619 26.0601L21.5849 33.5765C21.4258 33.6934 21.2926 33.8419 21.1935 34.0128C21.0945 34.1836 21.0317 34.3731 21.0093 34.5693C20.9869 34.7655 21.0052 34.9642 21.0631 35.153C21.121 35.3418 21.2172 35.5166 21.3458 35.6665C21.4744 35.8163 21.6326 35.9379 21.8104 36.0238C21.9882 36.1097 22.1818 36.158 22.3792 36.1656C22.5765 36.1732 22.7733 36.1401 22.9572 36.0682C23.1411 35.9962 23.3081 35.8871 23.4479 35.7475L33.4967 27.1499C33.6545 27.0152 33.7812 26.848 33.8681 26.6597C33.955 26.4713 34 26.2662 34 26.0588C34 25.8513 33.955 25.6463 33.8681 25.4579C33.7812 25.2695 33.6545 25.1022 33.4967 24.9676L23.4479 16.3616C23.1941 16.1361 22.8685 16.0079 22.529 16V16.0003Z" fill="black"/>
+        </svg>
+      </div>
+    <div thumbsSlider="" class="swiper custom-card-swiper">
+      <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+        <div class="swiper-slide clip--corner clip--corner-corner-10px" data-media-id="{{ media.id }}">
+                <img
+                  class="global-media-settings global-media-settings--no-shadow"
+                  srcset="{{ media.preview_image | img_url: '550x' }} 550w"
+                  sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+                  src="{{ media.preview_image | img_url: '1445x' }}"
+                  alt="{{ media.alt | escape }}"
+                  loading="lazy"
+                  width="1100"
+                  data-media-id="{{ media.id }}"
+                  {% if variant_image %}class="product__media-item--variant"{% endif %}
+                >
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+      <div class="slider-button slider-button-next slider-control">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26.0002 52C39.8073 52 52 39.8073 52 26.0002C52 12.1932 39.8073 0 26.0002 0C12.1932 0 0 12.1932 0 26.0002C0.015564 39.8008 12.1992 51.9844 26.0002 52ZM26.0002 3.50029C38.4266 3.50029 48.5002 13.5738 48.5002 26.0002C48.5002 38.4266 38.4266 48.5002 26.0002 48.5002C13.5738 48.5002 3.50029 38.4266 3.50029 26.0002C3.51448 13.5798 13.5798 3.51448 26.0002 3.50029Z" fill="black"/>
+          <path d="M29.471 35.9997C29.769 36.0063 30.0617 35.9199 30.3084 35.7524C30.555 35.5849 30.7433 35.3446 30.8472 35.0652C30.951 34.7857 30.9652 34.4809 30.8877 34.193C30.8103 33.9051 30.6451 33.6486 30.4151 33.4589L21.6381 25.9399L30.4151 18.4235C30.5742 18.3066 30.7074 18.1581 30.8065 17.9872C30.9055 17.8164 30.9683 17.6269 30.9907 17.4307C31.0131 17.2345 30.9948 17.0358 30.9369 16.847C30.879 16.6582 30.7828 16.4834 30.6542 16.3335C30.5256 16.1837 30.3674 16.0621 30.1896 15.9762C30.0118 15.8903 29.8182 15.842 29.6208 15.8344C29.4235 15.8268 29.2267 15.8599 29.0428 15.9318C28.8589 16.0038 28.6919 16.1129 28.5521 16.2525L18.5033 24.8501C18.3455 24.9848 18.2188 25.152 18.1319 25.3403C18.045 25.5287 18 25.7338 18 25.9412C18 26.1487 18.045 26.3537 18.1319 26.5421C18.2188 26.7305 18.3455 26.8978 18.5033 27.0324L28.5521 35.6384C28.8059 35.8639 29.1315 35.9921 29.471 36V35.9997Z" fill="black"/>
+        </svg>
+      </div>
+  </div>
+  
+</div>
+
+<div style="display: none;">
+    <style>
+      .lighbox-slider{
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .lighbox-slider figure.zoom {
+        background-position: 50% 50%;
+        overflow: hidden;
+        cursor: zoom-in;
+      }
+      .lighbox-slider figure.zoom img:hover {
+        opacity: 0;
+      }
+      .lighbox-slider figure.zoom img {
+        transition: opacity 0.5s;
+        display: block;
+        width: 100%;
+      }
+
+      .lighbox-slider .swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .lighbox-slider .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .lighbox-slider .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .lighbox-slider .swiper {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .lighbox-slider .swiper-slide {
+        background-size: cover;
+        background-position: center;
+      }
+
+      .lighbox-slider .custom-view-swiper {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        right: 0px;
+        max-width: 100%;
+        margin-top: -5px;
+      }
+      @media only screen and (max-width: 1270px) {
+        .lighbox-slider .custom-view-swiper {
+			width: 70%;
+        }
+      }
+
+      .lighbox-slider .custom-card-swiper .swiper-slide {
+        width: 100%;
+        height: auto !important;
+        opacity: 0.4;
+        cursor: pointer;
+      }
+
+      .lighbox-slider .custom-card-swiper .swiper-slide-thumb-active {
+        opacity: 1;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .lighbox-slider{
+          display: grid !important;
+        }
+        .lighbox-slider .slider-button {
+          display: none;
+          position: absolute;
+          top: 40%;
+          z-index: 99;
+        }
+
+        .lighbox-slider .slider-button-next {
+          display: none !important;
+          right: 0%;
+        }
+        .lighbox-slider .slider-button-prev {
+          display: none !important;
+          left: 0%;
+        }
+
+
+        .lighbox-slider .custom-card-swiper {
+          width: 100vw !important;
+          margin-left: 0px !important;
+          height: 100%;
+          box-sizing: border-box;
+          padding: 10px 10px;
+        }
+        .lighbox-slider .custom-view-swiper{
+          position: relative;
+          height: 70vh;
+          width: 100%;
+          max-width: 100%;
+          padding: 0px 10px;
+        }
+
+        .lighbox-slider .custom-card-swiper .swiper-slide {
+          width: 120px !important;
+        }
+      }
+
+      @media only screen and (min-width: 769px) {
+        .lighbox-slider .slider-button-next{
+          position: block;
+          margin-left: 50%;
+          transform: rotate(-90deg) !important;
+        }
+        .lighbox-slider .slider-button-prev{
+          position: block;
+          margin-left: 50%;
+          transform: rotate(-90deg) !important;
+        }
+        .lighbox-slider .custom-card-swiper {
+          width: 5em;
+          margin-left: 3em !important;
+          height: 70vh;
+          box-sizing: border-box;
+          padding: 10px 0;
+        }
+        .slider-left-ctl{
+          position: absolute;
+          left: 0px;
+        }
+      }
+
+      .lighbox-slider .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .slider-left-ctl{
+        z-index: 99 !important;
+      }
+    </style>
+
+
+    <!-- Initialize Swiper -->
+    <script>
+      
+      function zoom(e){
+          var zoomer = e.currentTarget;
+          e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+          e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+          x = offsetX/zoomer.offsetWidth*100
+          y = offsetY/zoomer.offsetHeight*100
+          zoomer.style.backgroundPosition = x + '% ' + y + '%';
+      }
+      
+      var cus_card_swiper = new Swiper(".custom-card-swiper", {
+        direction: "horizontal",
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        navigation: {
+          nextEl: ".slider-button-next",
+          prevEl: ".slider-button-prev",
+        },
+        breakpoints: {
+          // when window width is >= 749px
+          749: {
+            direction: "vertical",
+            slidesPerView: 3,
+            spaceBetween: 10
+          },
+          // when window width is >= 750px
+          750: {
+            direction: "vertical",
+            slidesPerView: 4,
+            spaceBetween: 10
+          },
+          // when window width is >= 990px
+          990: {
+            direction: "vertical",
+            slidesPerView: 5,
+            spaceBetween: 10
+          }
+        }
+      });
+      var cus_view_swiper = new Swiper(".custom-view-swiper", {
+        spaceBetween: 10,
+        autoHeight: true,
+        allowTouchMove: false,
+        thumbs: {
+          swiper: cus_card_swiper,
+        },
+      });
+      
+      let selectLightBoxSlide = function(i, mid){
+        
+        var nodes = Array.prototype.slice.call( document.querySelector('.lighbox-slider .custom-view-swiper .swiper-wrapper').children ),
+            liRef = document.querySelector(`.lighbox-slider .custom-view-swiper .swiper-wrapper .swiper-slide[data-media-id='${mid}']`);
+        
+        console.log(mid);
+        console.log( nodes, liRef );
+        
+        console.log( nodes.indexOf( liRef ) );
+        
+        
+        cus_view_swiper.slideTo((nodes.indexOf( liRef )), false, false);
+      }
+      
+      
+      /*
+      
+      document.querySelectorAll(".lighbox-slider img[data-media-id]").forEach(img => {
+        console.log(img);
+        img.addEventListener('click', function(){
+          alert(img);
+        });
+      });
+      
+      setTimeout(function(){
+        let ddd = document.querySelector(".lighbox-slider img[data-media-id='29401674612965']");
+        ddd.closest('.swiper-slide').click();
+        console.log(ddd.closest('.swiper-slide'));
+        cus_view_swiper.slideTo(3, 1, true);
+      },1000*5);
+      */
+    </script>
+</div>
+

@@ -1,0 +1,87 @@
+.collection--list-item {
+/*   position: relative; */
+}
+
+.collection--image figure {
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+}
+
+.collection--image figure img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.color--scheme-dark, .color--scheme-dark h2 {
+  color: rgb(18,18,18);
+}
+
+.color--scheme-light, .color--scheme-light h2 {
+  color: rgb(255,255,255);
+}
+
+.collection--list-item .collection--info {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  color: #ffffff;
+  background: linear-gradient(45deg, rgba(0,0,0,0.1), transparent);
+  padding: 20px 20px 15px;
+}
+
+.collection--info .collection--title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1em;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.collection--info .collection--subtitle {
+  margin: 15px 0px;
+  font-size: 10px;
+  line-height: 1.2em;
+}
+
+.collection--info .collection--button-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.collection--info .collection--button-group .button {
+  margin-right: 10px;
+}
+
+.collection--info .collection--button-group .button:last-child {
+  margin-right: 0;
+}
+
+@media all and (min-width: 750px) {
+  .collection--list-item-wrapper {
+    max-width: 50%;
+  }
+  
+  .collection--list-item .collection--info {
+    padding: 30px 40px 25px;
+  }
+  
+  .collection--info .collection--title {
+    font-size: 36px;
+  }
+  
+  .collection--info .collection--subtitle {
+    font-size: 18px;
+  }
+  
+  .collection--info .collection--button-group {
+    column-gap: 30px;
+  }
+  
+  .collection--info .collection--subtitle {
+    margin-bottom: 25px;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "layout": false,
+  "sections": {
+    "main": {
+      "type": "product-card-view",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

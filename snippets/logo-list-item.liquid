@@ -1,0 +1,27 @@
+{%- if link != blank and image != blank -%}
+  <a href="{{ link }}" class="logo-list__item" aria-label="{{ 'accessibility.visit_link' | t: link: link }}">
+{%- else -%}
+  <div class="logo-list__item">
+{%- endif -%}
+
+  {%- if image != blank -%}
+    {% render 'image-lazy' with image: image %}
+  {%- elsif image_svg != blank -%}
+    <div class="logo-list__item-image placeholder-image">
+      {{ image_svg }}
+    </div>
+  {%- else -%}
+    <div class="logo-list__item-image placeholder-image">
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+  
+ {%- if title != blank -%}
+    <p class="logo-list-item--text">{{ title }}</p>
+ {%- endif -%}
+    
+{%- unless link != blank and image != blank -%}
+  </div>
+{%- else -%}
+  </a>
+{%- endunless -%}

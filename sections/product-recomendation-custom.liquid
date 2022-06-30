@@ -1,0 +1,408 @@
+{{ 'featured-collection-alternative.css' | asset_url | stylesheet_tag }}
+<!-- section/featured-product-alternative.liquid -->
+
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-product-recommendations.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="color-{{ section.settings.color_scheme }} gradient">  
+  <product-recommendations class="product-recommendations section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4">
+
+  <!-- tab toggle buttons  -->
+
+  <!--  buttton styles    -->
+    <style>
+      ul.custom-reco-each-button-parents {
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    ul.custom-reco-each-button-parents li {
+        list-style: none;
+        font-size: calc(var(--font-heading-scale) * 2.4rem);
+        color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: bold;
+    }
+      ul.custom-reco-each-button-parents span {
+        border: 1px solid #000;
+        height: 39px;
+      }
+      ul.custom-reco-each-button-parents li:hover{
+        border-bottom: 2px solid #000;
+      }
+      #default_recomendation_shopify{
+        display: none;
+      }
+      div#featured__collection{
+        margin: 30px 0;
+      }
+      ul.custom-reco-each-button-parents li.active{
+        border-bottom: 2px solid #000;
+        color: #000;
+      }
+      li.left.custom-reco-each-button{
+      	margin-right: 10px;
+      }
+      li.right.custom-reco-each-button{
+      	margin-left: 10px;
+      }
+      @media only screen and (min-width: 750px){
+/*         .page-width-tablet{padding: 0 !important;} */
+      }
+      
+      .color--scheme--light, .color--scheme--light h1, .color--scheme--light h2, .color--scheme--light h3, .color--scheme--light h4, .color--scheme--light h5, .color--scheme--light h6, .color--scheme--light p, .color--scheme--light button{
+      	color: rgb(var(--color-foreground));
+      }
+      
+      @media only screen and (max-width: 414px){
+        ul.custom-reco-each-button-parents li{
+        	font-size: 14px !important;
+        }
+        ul.custom-reco-each-button-parents span{
+        	height: 27px !important;
+        }
+        ul.custom-reco-each-button-parents svg {
+    	  height: 20px !important;
+		}
+      }
+/*       @media only screen and (max-width: 750px){
+        product-recommendations{
+        	padding: 0 !important;
+        }
+      } */
+      
+      @media only screen and (min-width: 768px){
+        .custom-recomendation-butttons{
+      		padding: 0 5rem;	
+      	}
+        section#shopify-section-{{section.id}} .product-recommendations .swiper {
+      		margin: 0 -16px !important;
+    	}
+      }
+      
+      @media only screen and (max-width: 768px){
+        #featured__collection .swiper{padding: 0 !important;}
+      	
+      }
+    </style>
+  <div class="custom-recomendation-butttons page-width-tablet">
+    <ul class="custom-reco-each-button-parents">
+      <li class="left custom-reco-each-button custom-reco-wear-it-with-btn tablinks active" onclick="openSection(event, 'wear_it_with')">{{section.settings.wear_it_with}}</li>
+      <svg width="2" height="40" viewBox="0 0 2 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<rect width="2" height="40" fill="black"/>
+	  </svg>
+      <li class="right custom-reco-each-button custom-reco-default-btn tablinks" onclick="openSection(event, 'default_recomendation_shopify')">{{section.settings.heading}}</li>
+    </ul>
+  </div>
+
+
+<div id="default_recomendation_shopify" class="tabcontent">
+  <div id="featured__collection" class="section--margin-default{% if section.settings.color_scheme == 'dark' %} color--scheme--dark{% else %} color--scheme--light{% endif %}">
+  <div class="page-width-tablet">
+    <div class="grid grid--1-col">
+      <div class="grid__item">
+          <div class="section--bottom-wrapper">
+          <fc-slider data-slide-to-show="{{ section.settings.slide_to_show }}">
+            <div class="swiper">
+              <div class="swiper-wrapper">
+                {% if recommendations.performed and recommendations.products_count > 0 %}
+                {% for recommendation in recommendations.products %}
+                  <div class="swiper-slide">
+                    {% render 'product-card-alternative',
+                      product: recommendation,
+                      media_aspect_ratio: section.set   tings.image_ratio,
+                      show_secondary_image: section.settings.show_secondary_image,
+                      show_vendor: section.settings.show_vendor,
+                      show_rating: section.settings.show_rating
+                    %}
+                  </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="slide-button-prev slider-control">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26.0002 52C39.8073 52 52 39.8073 52 26.0002C52 12.1932 39.8073 0 26.0002 0C12.1932 0 0 12.1932 0 26.0002C0.015564 39.8008 12.1992 51.9844 26.0002 52ZM26.0002 3.50029C38.4266 3.50029 48.5002 13.5738 48.5002 26.0002C48.5002 38.4266 38.4266 48.5002 26.0002 48.5002C13.5738 48.5002 3.50029 38.4266 3.50029 26.0002C3.51448 13.5798 13.5798 3.51448 26.0002 3.50029Z" fill="black"/>
+                <path d="M29.471 35.9997C29.769 36.0063 30.0617 35.9199 30.3084 35.7524C30.555 35.5849 30.7433 35.3446 30.8472 35.0652C30.951 34.7857 30.9652 34.4809 30.8877 34.193C30.8103 33.9051 30.6451 33.6486 30.4151 33.4589L21.6381 25.9399L30.4151 18.4235C30.5742 18.3066 30.7074 18.1581 30.8065 17.9872C30.9055 17.8164 30.9683 17.6269 30.9907 17.4307C31.0131 17.2345 30.9948 17.0358 30.9369 16.847C30.879 16.6582 30.7828 16.4834 30.6542 16.3335C30.5256 16.1837 30.3674 16.0621 30.1896 15.9762C30.0118 15.8903 29.8182 15.842 29.6208 15.8344C29.4235 15.8268 29.2267 15.8599 29.0428 15.9318C28.8589 16.0038 28.6919 16.1129 28.5521 16.2525L18.5033 24.8501C18.3455 24.9848 18.2188 25.152 18.1319 25.3403C18.045 25.5287 18 25.7338 18 25.9412C18 26.1487 18.045 26.3537 18.1319 26.5421C18.2188 26.7305 18.3455 26.8978 18.5033 27.0324L28.5521 35.6384C28.8059 35.8639 29.1315 35.9921 29.471 36V35.9997Z" fill="black"/>
+              </svg>
+            </div>
+            <div class="slide-button-next slider-control">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25.9998 0C12.1927 0 0 12.1927 0 25.9998C0 39.8068 12.1927 52 25.9998 52C39.8068 52 52 39.8068 52 25.9998C51.9844 12.1992 39.8008 0.0155639 25.9998 0ZM25.9998 48.4997C13.5734 48.4997 3.49984 38.4262 3.49984 25.9998C3.49984 13.5734 13.5734 3.49984 25.9998 3.49984C38.4262 3.49984 48.4997 13.5734 48.4997 25.9998C48.4855 38.4202 38.4202 48.4855 25.9998 48.4997Z" fill="black"/>
+                <path d="M22.529 16.0003C22.231 15.9937 21.9383 16.0801 21.6916 16.2476C21.445 16.4151 21.2567 16.6554 21.1528 16.9348C21.049 17.2143 21.0348 17.5191 21.1123 17.807C21.1897 18.0949 21.3549 18.3514 21.5849 18.5411L30.3619 26.0601L21.5849 33.5765C21.4258 33.6934 21.2926 33.8419 21.1935 34.0128C21.0945 34.1836 21.0317 34.3731 21.0093 34.5693C20.9869 34.7655 21.0052 34.9642 21.0631 35.153C21.121 35.3418 21.2172 35.5166 21.3458 35.6665C21.4744 35.8163 21.6326 35.9379 21.8104 36.0238C21.9882 36.1097 22.1818 36.158 22.3792 36.1656C22.5765 36.1732 22.7733 36.1401 22.9572 36.0682C23.1411 35.9962 23.3081 35.8871 23.4479 35.7475L33.4967 27.1499C33.6545 27.0152 33.7812 26.848 33.8681 26.6597C33.955 26.4713 34 26.2662 34 26.0588C34 25.8513 33.955 25.6463 33.8681 25.4579C33.7812 25.2695 33.6545 25.1022 33.4967 24.9676L23.4479 16.3616C23.1941 16.1361 22.8685 16.0079 22.529 16V16.0003Z" fill="black"/>
+              </svg>
+            </div>
+          </fc-slider>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>  
+</div>
+
+
+
+<div id="wear_it_with" class="tabcontent">
+  <div id="featured__collection" class="section--margin-default{% if section.settings.color_scheme == 'dark' %} color--scheme--dark{% else %} color--scheme--light{% endif %}">
+  <div class="page-width-tablet">
+    <div class="grid grid--1-col">
+      <div class="grid__item">
+          <div class="section--bottom-wrapper">
+          <fc-slider data-slide-to-show="{{ section.settings.slide_to_show }}">
+            <div class="swiper">
+              <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                  <div class="swiper-slide">
+                    {%- if block.settings.match_it_product != blank -%}
+                    {% render 'product-card-alternative',
+                      product: block.settings.match_it_product,
+                      media_aspect_ratio: section.set   tings.image_ratio,
+                      show_secondary_image: section.settings.show_secondary_image,
+                      show_vendor: section.settings.show_vendor,
+                      show_rating: section.settings.show_rating
+                    %}
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="slide-button-prev slider-control">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26.0002 52C39.8073 52 52 39.8073 52 26.0002C52 12.1932 39.8073 0 26.0002 0C12.1932 0 0 12.1932 0 26.0002C0.015564 39.8008 12.1992 51.9844 26.0002 52ZM26.0002 3.50029C38.4266 3.50029 48.5002 13.5738 48.5002 26.0002C48.5002 38.4266 38.4266 48.5002 26.0002 48.5002C13.5738 48.5002 3.50029 38.4266 3.50029 26.0002C3.51448 13.5798 13.5798 3.51448 26.0002 3.50029Z" fill="black"/>
+                <path d="M29.471 35.9997C29.769 36.0063 30.0617 35.9199 30.3084 35.7524C30.555 35.5849 30.7433 35.3446 30.8472 35.0652C30.951 34.7857 30.9652 34.4809 30.8877 34.193C30.8103 33.9051 30.6451 33.6486 30.4151 33.4589L21.6381 25.9399L30.4151 18.4235C30.5742 18.3066 30.7074 18.1581 30.8065 17.9872C30.9055 17.8164 30.9683 17.6269 30.9907 17.4307C31.0131 17.2345 30.9948 17.0358 30.9369 16.847C30.879 16.6582 30.7828 16.4834 30.6542 16.3335C30.5256 16.1837 30.3674 16.0621 30.1896 15.9762C30.0118 15.8903 29.8182 15.842 29.6208 15.8344C29.4235 15.8268 29.2267 15.8599 29.0428 15.9318C28.8589 16.0038 28.6919 16.1129 28.5521 16.2525L18.5033 24.8501C18.3455 24.9848 18.2188 25.152 18.1319 25.3403C18.045 25.5287 18 25.7338 18 25.9412C18 26.1487 18.045 26.3537 18.1319 26.5421C18.2188 26.7305 18.3455 26.8978 18.5033 27.0324L28.5521 35.6384C28.8059 35.8639 29.1315 35.9921 29.471 36V35.9997Z" fill="black"/>
+              </svg>
+            </div>
+            <div class="slide-button-next slider-control">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25.9998 0C12.1927 0 0 12.1927 0 25.9998C0 39.8068 12.1927 52 25.9998 52C39.8068 52 52 39.8068 52 25.9998C51.9844 12.1992 39.8008 0.0155639 25.9998 0ZM25.9998 48.4997C13.5734 48.4997 3.49984 38.4262 3.49984 25.9998C3.49984 13.5734 13.5734 3.49984 25.9998 3.49984C38.4262 3.49984 48.4997 13.5734 48.4997 25.9998C48.4855 38.4202 38.4202 48.4855 25.9998 48.4997Z" fill="black"/>
+                <path d="M22.529 16.0003C22.231 15.9937 21.9383 16.0801 21.6916 16.2476C21.445 16.4151 21.2567 16.6554 21.1528 16.9348C21.049 17.2143 21.0348 17.5191 21.1123 17.807C21.1897 18.0949 21.3549 18.3514 21.5849 18.5411L30.3619 26.0601L21.5849 33.5765C21.4258 33.6934 21.2926 33.8419 21.1935 34.0128C21.0945 34.1836 21.0317 34.3731 21.0093 34.5693C20.9869 34.7655 21.0052 34.9642 21.0631 35.153C21.121 35.3418 21.2172 35.5166 21.3458 35.6665C21.4744 35.8163 21.6326 35.9379 21.8104 36.0238C21.9882 36.1097 22.1818 36.158 22.3792 36.1656C22.5765 36.1732 22.7733 36.1401 22.9572 36.0682C23.1411 35.9962 23.3081 35.8871 23.4479 35.7475L33.4967 27.1499C33.6545 27.0152 33.7812 26.848 33.8681 26.6597C33.955 26.4713 34 26.2662 34 26.0588C34 25.8513 33.955 25.6463 33.8681 25.4579C33.7812 25.2695 33.6545 25.1022 33.4967 24.9676L23.4479 16.3616C23.1941 16.1361 22.8685 16.0079 22.529 16V16.0003Z" fill="black"/>
+              </svg>
+            </div>
+          </fc-slider>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+</div>
+  </product-recommendations>
+</div>
+
+
+<!-- tab toggle scripts -->
+<script>
+function openSection(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+{% javascript %}
+  class ProductRecommendations extends HTMLElement {
+    constructor() {
+      super();
+
+      const handleIntersection = (entries, observer) => {
+        if (!entries[0].isIntersecting) return;
+        observer.unobserve(this);
+
+        fetch(this.dataset.url)
+          .then(response => response.text())
+          .then(text => {
+            const html = document.createElement('div');
+            html.innerHTML = text;
+            const recommendations = html.querySelector('product-recommendations');
+
+            if (recommendations && recommendations.innerHTML.trim().length) {
+              this.innerHTML = recommendations.innerHTML;
+            }
+
+            if (html.querySelector('.grid__item')) {
+              this.classList.add('product-recommendations--loaded');
+            }
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      }
+
+      new IntersectionObserver(handleIntersection.bind(this), {rootMargin: '0px 0px 200px 0px'}).observe(this);
+    }
+  }
+
+  customElements.define('product-recommendations', ProductRecommendations);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product Recomendation Alt",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.product-recommendations.settings.paragraph__1.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "Default Reco Heading"
+    },
+	{
+      "type": "text",
+      "id": "wear_it_with",
+      "default": "You may also like",
+      "label": "Wear It With Heading"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.product-recommendations.settings.header__2.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.product-recommendations.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_rating.label",
+      "info": "t:sections.product-recommendations.settings.show_rating.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+        "type": "range",
+        "id": "slide_to_show",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "label": "Slide to show",
+        "default": 4
+      }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Match it with product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "match_it_product",
+          "label": "Match it with product"
+        }
+    ]
+}
+]
+}
+{% endschema %}

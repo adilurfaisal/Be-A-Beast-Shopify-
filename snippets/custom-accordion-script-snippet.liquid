@@ -1,0 +1,17 @@
+<script> 
+const trigger = document.querySelectorAll(".trigger");
+        const triggerTwo = document.querySelectorAll(".circle-animation");
+        const content = document.querySelectorAll(".content");
+
+        content.forEach((el, index) => {
+            const height = el.scrollHeight;
+            el.style.setProperty("--max-height", height + "px");
+        });
+
+        trigger.forEach((el, index) => {
+        el.addEventListener("click", (event) => {
+            el.classList.toggle("is-open");
+            el.nextElementSibling.classList.toggle("is-open");
+        });
+        });
+</script>

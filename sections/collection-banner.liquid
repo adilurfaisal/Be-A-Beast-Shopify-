@@ -1,0 +1,116 @@
+{{ 'collection-banner.css' | asset_url | stylesheet_tag }}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+  }
+
+  @media only screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} {
+      margin-top: 2rem;
+      margin-bottom: 10rem;
+    }
+    .collection--banner-container.fixed--height {
+      width: 100%;
+      height: {{ section.settings.banner__height | append: 'px' }};
+    }
+  }
+  @media only screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      margin-top: 2rem;
+      margin-bottom: 10rem;
+    }
+  }
+{% endstyle %}
+{%- liquid
+  assign image = collection.featured_image
+  unless image
+    assign image = section.settings.default_image
+  endunless
+  
+  assign product_count = collection.all_products_count
+  for product in collection.products
+    if product.handle == 'swatch'
+      assign product_count = product_count | minus: 1
+      break
+    endif
+  endfor
+-%}
+
+<div id="section--{{ section.id }}">
+  <div class="page--full-desktop">
+    <div class="collection--banner-container{% if section.settings.adaptive__height %} fixed--height{% endif %}">
+      <div class="collection--banner-wrapper">
+        <div class="collection--banner">
+          <div class="banner--image-wrapper clip--corner clip--corner-corner-30">
+            <figure>
+              {% if image %}
+                {%- render 'image-lazy', image: image -%}
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag }}
+              {% endif %}
+            </figure>
+          </div>
+          <div class="collection--meta">
+            <div class="collection--clip-path">
+            <h2 class="collection--heading">{{ collection.title }}</h2>
+            <h3 class="collection--sub-heading">{{ product_count | append: " Items"}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Collection Banner",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "select",
+        "id": "color_scheme",
+        "label": "Color Scheme",
+        "options": [
+          {
+            "value": "dark",
+            "label": "Dark"
+          },
+          {
+            "value": "light",
+            "label": "Light"
+          }
+        ],
+        "default": "dark"
+      },
+      {
+        "type": "checkbox",
+        "id": "adaptive__height",
+        "label": "Adaptive Height",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "banner__height",
+        "label": "Banner Height",
+        "min": 100,
+        "max": 800,
+        "step": 10,
+        "default": 600,
+        "info": "Set an adaptive height for banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "default_image",
+        "label": "Default Banner",
+        "info": "Default image to show if collection has no featured image"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

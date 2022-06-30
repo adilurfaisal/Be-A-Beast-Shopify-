@@ -1,0 +1,102 @@
+{{ 'instagram-shopping.css' | asset_url | stylesheet_tag }}
+<!-- section/instagram-shopping.liquid -->
+<div id="section--{{ section.id }}" class="section--margin-default">
+  <div class="page-width-tablet">
+    <h2 class="section--heading h1">{{ section.settings.heading }}</h2>
+    <div class="section--content">
+      <div class="grid grid--2-col grid--4-col-tablet grid--gapless-mobile">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'insta_post' %}
+            {% assign index = forloop.index %}
+            <div class="grid__item{% if index > 4 %} hide--on-mobile{% endif %}">
+              <div class="post--container">
+                <div class="post--wrapper">
+                  <div class="post--image clip--corner clip--corner-corner-30">
+                    {% assign image = block.settings.image %}
+                    {% unless image %}
+                      {% assign odd_or_even = index | modulo:2 %}
+                      {% if odd_or_even == 0 %}
+                        {{ 'collection-5' | placeholder_svg_tag }}
+                      {% else %}
+                        {{ 'collection-6' | placeholder_svg_tag }}
+                      {% endif %}
+                    {% else %}
+                      <figure>
+                        {% render 'image-lazy', image: image %}
+                      </figure>
+                    {% endunless %}
+                    <a aria-label="Check our instagram post" href="{{ block.settings.post_url }}" target="_blank" class="post--image-hover-overlay">
+                      {% render 'icon-library', icon: 'instagram', color: 'white' %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Instagram Shopping",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading"
+      },
+      {
+        "type": "select",
+        "id": "color_scheme",
+        "label": "Color Scheme",
+        "options": [
+          {
+            "value": "dark",
+            "label": "Dark"
+          },
+          {
+            "value": "light",
+            "label": "Light"
+          }
+        ],
+        "default": "dark"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "insta_post",
+        "name": "Instagram Post",
+        "limit": 8,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Post Image"
+          },
+          {
+            "type": "url",
+            "id": "post_url",
+            "label": "Post Url",
+            "default": "/collections/all"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Instagram Post",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

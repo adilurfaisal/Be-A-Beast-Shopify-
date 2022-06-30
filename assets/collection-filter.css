@@ -1,0 +1,508 @@
+.fake--wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+#CollectionFiltersContainer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 700px;
+  z-index: 2;
+  
+  height: 6rem;
+  transition: all 0.3s ease-in-out;
+  
+  -webkit-filter: drop-shadow(4px 4px 4px rgba(0,0,0,.4));
+  -moz-filter: drop-shadow(4px 4px 4px rgba(0,0,0,.4));
+  -ms-filter: drop-shadow(4px 4px 4px rgba(0,0,0,.4));
+  filter: drop-shadow(4px 4px 4px rgba(0,0,0,.4));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  -ms-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+/*   background: url(bg_blur_export.png);
+  background-repeat: repeat;
+  background-size: cover;
+  background-position-y: center; */
+}
+
+.box--shadow {
+  background: rgba(255,255,255,0.4);
+  
+}
+
+.section--colection-filter {
+  clip-path: polygon(20px 0, calc(100% - 20px) 0%, 100% 20px, 100% 100%, 0 100%, 0 20px);
+}
+
+.collection--filter-wrapper {
+  
+}
+
+.collection--filter-wrapper {
+  position: relative;
+  
+  padding-top: 0;
+  padding-right: 5px;
+  transition: all 0.3s ease-in-out;
+  height: 6rem;
+  
+}
+
+.collection--filter-header {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease-in-out;
+  user-select: none;
+  z-index: 2;
+}
+
+.collection--filter-header .filter--heading {
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter--heading .title {
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.icon-filter {
+  display: inline-flex;
+  margin-right: 10px;
+}
+
+.collection--filter {
+  max-height: calc(80vh + 0.5rem);
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 2.5rem;
+  padding-bottom: 0;
+  padding-top: 0;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+#CollectionFiltersContainer.active {
+  height: calc(80vh + 3rem);
+  filter: none;
+}
+
+#CollectionFiltersContainer.active .collection--filter-wrapper {
+  padding-top: 2.5rem;
+  background: rgba(0,0,0,0.4);
+  height: calc(80vh + 3rem);
+}
+
+#CollectionFiltersContainer.active .collection--filter-header {
+  visibility: hidden;
+}
+
+#CollectionFiltersContainer.active .collection--filter {
+  padding-bottom: 2rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+.collection--filter::-webkit-scrollbar {
+  width: 5px;
+}
+
+.collection--filter::-webkit-scrollbar-track {
+
+}
+
+.collection--filter::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 20px;
+  box-shadow: inset 0 0 40px rgba(18, 18, 18, 0.1);
+}
+
+.form--group {
+  margin-bottom: 10px;
+}
+
+.group--fields-wrapper {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.group--fields-wrapper .group--label {
+  margin: 10px 0;
+  color: #ffffff;
+  line-height: 1;
+  font-size: 18px;
+  font-family: var(--font-primary-family);
+}
+
+.group--fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+.group--fields input[type="checkbox"], .group--fields input[type="radio"] {
+  display: none;
+}
+
+.group--fields label, .active--filter {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 1;
+  position: relative;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  font-family: var(--font-primary-family);
+}
+
+.group--fields label::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.group--fields input:checked+label:not(.swatch), .active--filter {
+  color: #333333;
+  background-color: #ffffff;
+  -webkit-clip-path: polygon(5px 0%, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  -moz-clip-path: polygon(5px 0%, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  -ms-clip-path: polygon(5px 0%, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  clip-path: polygon(5px 0%, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  border: none;
+}
+
+div[data-name="Price"] .group--fields-wrapper {
+  align-items: center;
+}
+
+div[data-name="Price"] .group--fields {
+  position: relative;
+  bottom: -15px;
+  /* transform: translateY(-50%); */
+  height: 65px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.price--meta-wrap {
+  position: relative;
+  width: 70%;
+  height: 100%;
+}
+
+.price--info span {
+  z-index: 2;
+}
+
+.price--info::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background: #ffffff;
+  width: calc(100% + 10px);
+  height: 100%;
+  z-index: -1;
+  transform: translateX(-50%);
+  clip-path: polygon(5px 0%, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+
+.price--info::after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  background: #ffffff;
+  width: 16px;
+  height: 10px;
+  transform: translate(-50%);
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+}
+
+.price--min-info {
+  position: absolute;
+  left: 0;
+  top: -14px;
+  z-index: 2;
+  transform: translateX(-4px);
+}
+
+.price--max-info {
+  position: absolute;
+  right: 0;
+  top: -14px;
+  z-index: 2;
+  transform: translateX(16px);
+}
+
+.price--slider {
+  height: 5px;
+  position: absolute;
+  background: #ffffff;
+  border-radius: 5px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.price--slider .slider--progress {
+  height: 100%;
+  position: absolute;
+  border-radius: 5px;
+  background: rgba(203, 66, 66, 0.7);;
+}
+
+.range--input {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.range--input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+  left: -2px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.range--input input.range-min+label {
+  position: absolute;
+  top: -40px;
+  left: 0px;
+  padding: 0;
+  border: none;
+  color: #000;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+}
+
+.range--input input.range-min+label .label--value {
+  color: #000000;
+  position: relative;
+  z-index: 2;
+  left: 50%;
+}
+
+.range--input input.range-min+label::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  padding: 0;
+  border: none;
+  background: #ffffff;
+  z-index: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 16px;
+  width: 16px;
+  background: #000000;
+  border: 4px solid #ffffff;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border: none;
+  background: #000000;
+  border: 4px solid #ffffff;
+  pointer-events: auto;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+#CollectionFilter input:disabled+label {
+  display: none;
+}
+
+.color--label.swatch {
+  border: none;
+  transition: all 0.15s ease-in-out;
+  
+}
+
+.color--label.swatch:hover {
+  
+  transform: scale(1.15);
+}
+
+input.color-swatch-input:checked+label.swatch {
+  transform: scale(1.15);
+  border: 2px solid #ffffff;
+}
+
+.color--label.swatch.swatch-default {
+  background-image: url("slash.png"), linear-gradient(to right, #DDD, #DDD);
+  background-size: cover;
+  
+}
+
+.color--label.swatch.swatch-default::before {
+  
+  
+}
+
+.color--label.swatch:hover::before {
+  transform: translate(-50%, -25px) scale(0.85);
+}
+
+.color--label:hover::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-size: 10px;
+  transform: translate(-50%, -25px);
+  background-color: #ffffff;
+  color: #000000;
+  padding: 3px 5px;
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 1.2;
+  width: max-content;
+  clip-path: polygon(3px 0%, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
+}
+
+.color--label:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  background: #ffffff;
+  width: 12px;
+  height: 8px;
+  transform: translate(-50%, -9px);
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+}
+
+label[data-available="0"] {
+  display: none;
+}
+
+.filter--close-trigger {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  color: #ffffff;
+  background: rgba(0,0,0, 0.3);
+  padding: 10px 20px;
+  box-shadow: none;
+  border: none;
+  backdrop-filter: blur(15px);
+  text-transform: lowercase;
+  font-weight: 600;
+  line-height: 1;
+  font-size: 20px;
+  display: none;
+  font-family: var(--font-primary-family);
+}
+
+#CollectionFiltersContainer:hover .filter--close-trigger {
+  display: block;
+}
+
+.clear-filter-btn {
+  color: #ffffff;
+  background: rgba(203, 66, 66, 0.7);
+}
+
+.order--1 {
+  order: 1;
+}
+
+.order--2 {
+  order: 2;
+}
+
+.order--3 {
+  order: 3;
+}
+
+@media screen and (min-width: 750px) {
+  #CollectionFiltersContainer {
+    height: 8rem;
+  }
+  
+  .section--colection-filter {
+    -webkit-clip-path: polygon(30px 0, calc(100% - 30px) 0%, 100% 30px, 100% 100%, 0 100%, 0 30px);
+    -moz-clip-path: polygon(30px 0, calc(100% - 30px) 0%, 100% 30px, 100% 100%, 0 100%, 0 30px);
+    -ms-clip-path: polygon(30px 0, calc(100% - 30px) 0%, 100% 30px, 100% 100%, 0 100%, 0 30px);
+    clip-path: polygon(30px 0, calc(100% - 30px) 0%, 100% 30px, 100% 100%, 0 100%, 0 30px);
+  }
+  
+  .collection--filter-wrapper {
+    height: 8rem;
+  }
+  
+  .collection--filter {
+    max-height: calc(75vh + 0.5rem);
+    padding: 4rem;
+  }
+  
+  #CollectionFiltersContainer.active {
+    height: calc(75vh + 4rem);
+  }
+  
+  #CollectionFiltersContainer.active .collection--filter-wrapper {
+    padding-top: 3.5rem;
+    height: calc(75vh + 4rem);
+  }
+  
+  #CollectionFiltersContainer.active .collection--filter {
+    padding-bottom: 2rem;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .group--fields-wrapper {
+    grid-template-columns: 150px auto;
+  }
+  
+  .group--fields-wrapper .group--label {
+    font-size: 24px;
+  }
+  
+  .group--fields label, .active--filter {
+    font-size: 16px;
+  }
+  
+  #CollectionFiltersContainer:hover .filter--close-trigger {
+    display: none;
+  }
+}

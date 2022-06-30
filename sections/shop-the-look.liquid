@@ -1,0 +1,405 @@
+{{ 'section-shop-the-look.css' | asset_url | stylesheet_tag }}
+<!-- section/shop-the-look.liquid -->
+<div class="section--wrapper section-shop-the-look-{{ section.id }} section-shop-the-look">
+  <div class="page-width-tablet">
+    <h2 class="section--heading h1">{{ section.settings.heading }}</h2>
+    <div class="section--bottom-wrapper">
+      <shop-the-look>
+        <div class="main--slider-container swiper">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% style %}
+                {% if block.settings.pin_1_active and block.settings.product_1 != ""  %}
+                  .image--pin.pin--1.image--pin--{{ block.id }} {
+                    top: {{ block.settings.pin_top_1 | append: '%' }};
+                    left: {{ block.settings.pin_left_1 | append: '%' }};
+                  }
+                {% endif %}
+                {% if block.settings.pin_2_active and block.settings.product_2 != ""  %}
+                  .image--pin.pin--2.image--pin--{{ block.id }} {
+                    top: {{ block.settings.pin_top_2 | append: '%' }};
+                    left: {{ block.settings.pin_left_2 | append: '%' }};
+                  }
+                {% endif %}
+                {% if block.settings.pin_3_active and block.settings.product_3 != ""  %}
+                  .image--pin.pin--3.image--pin--{{ block.id }} {
+                    top: {{ block.settings.pin_top_3 | append: '%' }};
+                    left: {{ block.settings.pin_left_3 | append: '%' }};
+                  }
+                {% endif %}
+                {% if block.settings.pin_4_active and block.settings.product_4 != ""  %}
+                  .image--pin.pin--4.image--pin--{{ block.id }} {
+                    top: {{ block.settings.pin_top_4 | append: '%' }};
+                    left: {{ block.settings.pin_left_4 | append: '%' }};
+                  }
+                {% endif %}
+              {% endstyle %}
+              <div class="main--slide swiper-slide">
+                <stl-vertical-slide>
+                  <div class="grid grid--1-col grid--2-col-tablet main--slide-grid-wrapper grid--gapless">
+                    <div class="grid__item {% if block.settings.image_position == 'right' %}order-2{% endif %}">
+                      <div class="image--container">
+                        <div class="image--wrapper">
+                          {% assign image = block.settings.image %}
+                          <div class="clip--corner">
+                            <figure class="position--relative">
+                              {% render 'image-lazy', image: image %}
+
+                              {% if block.settings.pin_1_active and block.settings.product_1 != "" %}
+                              <button aria-label="hidden" class="image--pin pin--1 image--pin--{{ block.id }} active" data-slide="1" data-block-id="{{ block.id }}"></button>
+                              {% endif %}
+                              {% if block.settings.pin_2_active and block.settings.product_2 != "" %}
+                              <button aria-label="hidden" class="image--pin pin--2 image--pin--{{ block.id }}" data-slide="2" data-block-id="{{ block.id }}"></button>
+                              {% endif %}
+                              {% if block.settings.pin_3_active and block.settings.product_3 != "" %}
+                              <button aria-label="hidden" class="image--pin pin--3 image--pin--{{ block.id }}" data-slide="3" data-block-id="{{ block.id }}"></button>
+                              {% endif %}
+                              {% if block.settings.pin_4_active and block.settings.product_4 != "" %}
+                              <button aria-label="hidden" class="image--pin pin--4 image--pin--{{ block.id }}" data-slide="4" data-block-id="{{ block.id }}"></button>
+                              {% endif %}
+                            </figure>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grid__item pin--product-slider-grid">
+                      <div class="pin--product-viewport">
+                        <div class="pin--product-slider">
+                          <div class="swiper-wrapper">
+                            {% if block.settings.pin_1_active and block.settings.product_1 != "" %}
+                              <div class="pin--product-wrapper swiper-slide">
+                                {% assign _handle = block.settings.product_1 %}
+                                {% assign product = all_products[_handle] %}
+                                {% render 'product-card-alternative', product: product %}
+                              </div>
+                            {% endif %}
+                            {% if block.settings.pin_2_active and block.settings.product_2 != "" %}
+                              <div class="pin--product-wrapper swiper-slide">
+                                {% assign _handle = block.settings.product_2 %}
+                                {% assign product = all_products[_handle] %}
+                                {% render 'product-card-alternative', product: product %}
+                              </div>
+                            {% endif %}
+                            {% if block.settings.pin_3_active and block.settings.product_3 != "" %}
+                              <div class="pin--product-wrapper swiper-slide">
+                                {% assign _handle = block.settings.product_3 %}
+                                {% assign product = all_products[_handle] %}
+                                {% render 'product-card-alternative', product: product %}
+                              </div>
+                            {% endif %}
+                            {% if block.settings.pin_4_active and block.settings.product_4 != "" %}
+                              <div class="pin--product-wrapper swiper-slide">
+                                {% assign _handle = block.settings.product_4 %}
+                                {% assign product = all_products[_handle] %}
+                                {% render 'product-card-alternative', product: product %}
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </stl-vertical-slide>
+              </div>
+            
+              
+            {% endfor %}
+          </div>
+        </div>
+      </shop-the-look>
+    </div>
+  </div>
+</div>
+{% for block in section.blocks %}
+<product-guide>
+  <div class="product--slider" data-ref="{{ block.id }}">
+    <div class="slider--container">
+      <div class="slider--wrapper">
+        <div class="swiper-wrapper">
+          {% if block.settings.pin_1_active and block.settings.product_1 != "" %}
+            <div class="swiper-slide">
+              {% assign _handle = block.settings.product_1 %}
+              {% assign product = all_products[_handle] %}
+              {% render 'product-card-alternative', product: product %}
+            </div>
+          {% endif %}
+          {% if block.settings.pin_2_active and block.settings.product_2 != "" %}
+            <div class="swiper-slide">
+              {% assign _handle = block.settings.product_2 %}
+              {% assign product = all_products[_handle] %}
+              {% render 'product-card-alternative', product: product %}
+            </div>
+          {% endif %}
+          {% if block.settings.pin_3_active and block.settings.product_3 != "" %}
+            <div class="swiper-slide">
+              {% assign _handle = block.settings.product_3 %}
+              {% assign product = all_products[_handle] %}
+              {% render 'product-card-alternative', product: product %}
+            </div>
+          {% endif %}
+          {% if block.settings.pin_4_active and block.settings.product_4 != "" %}
+            <div class="swiper-slide">
+              {% assign _handle = block.settings.product_4 %}
+              {% assign product = all_products[_handle] %}
+              {% render 'product-card-alternative', product: product %}
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+    <div class="slider--close">
+      <div class="slider--icon-wrap">
+        <div class="slider--icon">
+          <svg id="Icons" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m4.59 59.41a2 2 0 0 0 2.83 0l24.58-24.58 24.59 24.58a2 2 0 0 0 2.83-2.83l-24.59-24.58 24.58-24.59a2 2 0 0 0 -2.83-2.83l-24.58 24.59-24.59-24.58a2 2 0 0 0 -2.82 2.82l24.58 24.59-24.58 24.59a2 2 0 0 0 0 2.82z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</product-guide>
+{% endfor %}
+<script src="{{ 'section-shop-the-look.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+  {
+    "name": "Shop The Look",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "limit": 8,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Featured Image"
+          },
+          {
+            "type": "select",
+            "id": "image_position",
+            "label": "Image Position",
+            "options": [
+              {
+                "label": "Right",
+                "value": "right"
+              },
+              {
+                "label": "Left",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Pin Setting 1"
+          },
+          {
+            "type": "checkbox",
+            "id": "pin_1_active",
+            "label": "Active Pin"
+          },
+          {
+            "type": "range",
+            "id": "pin_top_1",
+            "label": "Position from top",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to top"
+          },
+          {
+            "type": "range",
+            "id": "pin_left_1",
+            "label": "Position from left",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to left"
+          },
+          {
+            "type": "range",
+            "id": "pin_scale_1",
+            "label": "Pin Size",
+            "min": 1,
+            "max": 3,
+            "default": 1,
+            "step": 0.1,
+            "info": "Pin size relative to (1.5rem, 15px)"
+          },
+          {
+            "type": "product",
+            "id": "product_1",
+            "label": "Product",
+            "info": "Product for this pin"
+          },
+          {
+            "type": "header",
+            "content": "Pin Setting 2"
+          },
+          {
+            "type": "checkbox",
+            "id": "pin_2_active",
+            "label": "Active Pin"
+          },
+          {
+            "type": "range",
+            "id": "pin_top_2",
+            "label": "Position from top",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to top"
+          },
+          {
+            "type": "range",
+            "id": "pin_left_2",
+            "label": "Position from left",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to left"
+          },
+          {
+            "type": "range",
+            "id": "pin_scale_2",
+            "label": "Pin Size",
+            "min": 1,
+            "max": 3,
+            "default": 1,
+            "step": 0.1,
+            "info": "Pin size relative to (1.5rem, 15px)"
+          },
+          {
+            "type": "product",
+            "id": "product_2",
+            "label": "Product",
+            "info": "Product for this pin"
+          },
+          {
+            "type": "header",
+            "content": "Pin Setting 3"
+          },
+          {
+            "type": "checkbox",
+            "id": "pin_3_active",
+            "label": "Active Pin"
+          },
+          {
+            "type": "range",
+            "id": "pin_top_3",
+            "label": "Position from top",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to top"
+          },
+          {
+            "type": "range",
+            "id": "pin_left_3",
+            "label": "Position from left",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to left"
+          },
+          {
+            "type": "range",
+            "id": "pin_scale_3",
+            "label": "Pin Size",
+            "min": 1,
+            "max": 3,
+            "default": 1,
+            "step": 0.1,
+            "info": "Pin size relative to (1.5rem, 15px)"
+          },
+          {
+            "type": "product",
+            "id": "product_3",
+            "label": "Product",
+            "info": "Product for this pin"
+          },
+          {
+            "type": "header",
+            "content": "Pin Setting 4"
+          },
+          {
+            "type": "checkbox",
+            "id": "pin_4_active",
+            "label": "Active Pin"
+          },
+          {
+            "type": "range",
+            "id": "pin_top_4",
+            "label": "Position from top",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to top"
+          },
+          {
+            "type": "range",
+            "id": "pin_left_4",
+            "label": "Position from left",
+            "min": 0,
+            "max": 100,
+            "default": 0,
+            "step": 1,
+            "unit": "%",
+            "info": "Pin position relative to left"
+          },
+          {
+            "type": "range",
+            "id": "pin_scale_4",
+            "label": "Pin Size",
+            "min": 1,
+            "max": 3,
+            "default": 1,
+            "step": 0.1,
+            "info": "Pin size relative to (1.5rem, 15px)"
+          },
+          {
+            "type": "product",
+            "id": "product_4",
+            "label": "Product",
+            "info": "Product for this pin"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop The Look",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

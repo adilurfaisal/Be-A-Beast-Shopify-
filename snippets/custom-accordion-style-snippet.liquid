@@ -1,0 +1,94 @@
+        <style>
+          .product__accordion .content {
+            transition: max-height .4s ease-in;
+            overflow: hidden;
+            max-height: 0;
+            }
+          .product__accordion .content.is-open {
+            max-height: var(--max-height);
+            }
+          .product__accordion ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            max-width: 800px;
+            }
+
+            .product__accordion p {
+            margin: 0;
+            }
+
+            .product__accordion .trigger {
+              /* background: #864879; */
+              font-weight: bold;
+              position: relative;
+              font-size: 20px;
+              cursor: pointer;
+              border-bottom: 1px solid #ccc;
+              display: flex;
+              justify-content: space-between;
+            }
+            .product__accordion .circle-animation{
+                position: relative;
+                flex: 0 0 30px;
+            }
+            .product__accordion .trigger.is-open .circle-animation .horizontal {
+                    position: absolute;
+                    background-color: #696868;
+                    width: 15px;
+                    height: 2px;
+                    left: 50%;
+                    margin-left: -6px;
+                    top: 50.8%;
+                    margin-top: -1px;
+            }
+
+            .product__accordion .trigger .circle-animation .horizontal {
+                    position: absolute;
+                    background-color: #696868;
+                    width: 15px;
+                    height: 2px;
+                    left: 50%;
+                    margin-left: -6px;
+                    top: 50.8%;
+                    margin-top: -1px;
+            }
+            .product__accordion .trigger.is-open .circle-animation .vertical {
+                position: absolute;
+                background-color: #696868;
+                width: 2px;
+                height: 15px;
+                left: 48.5%;
+                margin-left: 1px;
+                top: 50%;
+                margin-top: -7.5px;
+                transform: rotate(178deg);
+            }
+            /*.trigger.is-open .circle-animation .horizontal{
+                position: absolute;
+                background-color: #ffc454;
+                width: 20px;
+                height: 3px;
+                left: 50%;
+                margin-left: -10px;
+                top: 50%;
+                margin-top: -1px;
+            }*/
+           .product__accordion .trigger .circle-animation .vertical {
+                transition: all 0.3s ease-in;
+                transform: rotate(-90deg);
+                position: absolute;
+                background-color: #696868;
+                width: 2px;
+                height: 15px;
+                left: 50%;
+                margin-left: 0;
+                top: 50%;
+                margin-top: -7.5px;
+            }
+            .product__accordion button{
+                border: none;
+                outline: none;
+                background: transparent;
+            }
+        </style>
