@@ -17,7 +17,8 @@
       padding: 0;
   }
   .cart-items--section-1 {
-      min-width: 90px;
+    width: 90px;
+    min-width: 60px;
   }
   .cart-items--section-2 {
       width: 100%;
@@ -44,11 +45,23 @@
     display: none;
   }
 
+  .cart-quantity{
+    display: flex;
+    min-height: 30px;
+  }
+
+  .quantity__input{
+    border-right: 1px solid #000000;
+    border-left: 1px solid #000000;
+    max-width: 90px;
+  }
+
 {%- endstyle -%}
 
 <script src="{{ 'cart-alternate.js' | asset_url }}" defer="defer"></script>
 
-<form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
+<div style="display: flex; align-items: center; justify-content: center;">
+<form style="width: 100%; max-width: 1344px; padding: 50px;" action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
   
   <cart-all-item> 
       <temp id="cart-items-alt" class="cart-hidden">
@@ -79,16 +92,38 @@
             <div class="cart-item--price">
               ${original_price}
             </div>
+          </div>
 
-            <div class="cart-item--quantity">
-              <label class="visually-hidden">
-                ${quantity}
-              </label>
-              <div>
-                {% render 'icon-remove' %}
-              </div>
+          <div class="cart-items--section-3">
+            <cart-item-quantity class="cart-quantity">
+              <button class="quantity__button" name="minus" type="button">
+                {% render 'icon-minus' %}
+              </button>
+              <input class="quantity__input"
+                type="number"
+                name="updates[]"
+                value="0"
+                min="0"
+              >
+              <button class="quantity__button" name="plus" type="button">
+                {% render 'icon-plus' %}
+              </button>
+            </cart-item-quantity>
+          </div>
+
+          <div class="cart-items--section-3">
+            <div class="cart-item--price">
+              ${original_line_price}
             </div>
           </div>
+
+          <div class="cart-items--section-3">
+            <div class="cart-item--quantity">
+              {% render 'icon-remove' %}
+            </div>
+          </div>
+
+          
 
 
         </div>
@@ -96,6 +131,7 @@
       </temp>
   </cart-all-item>
 </form>
+</div>
 
 <cart-items-alter>
   <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">

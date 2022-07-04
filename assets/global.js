@@ -6,11 +6,12 @@ function getFocusableElements(container) {
   );
 }
 
+if(document.querySelectorAll('[id^="Details-"] summary')){
 document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
   summary.setAttribute('role', 'button');
   summary.setAttribute('aria-expanded', 'false');
 
-  if(summary.nextElementSibling.getAttribute('id')) {
+  if(summary.nextElementSibling && summary.nextElementSibling.getAttribute('id')) {
     summary.setAttribute('aria-controls', summary.nextElementSibling.id);
   }
 
@@ -21,6 +22,7 @@ document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
   if (summary.closest('header-drawer')) return;
   summary.parentElement.addEventListener('keyup', onKeyUpEscape);
 });
+}
 
 
 
