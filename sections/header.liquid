@@ -424,20 +424,14 @@
                 
 
                   
-                <span class="mobile--icon search-icon-wrapper mobile-nav-active-hide" style="width: 100%;
-                height: 100%;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;">
+                <span class="mobile--icon search-icon-wrapper mobile-nav-active-hide">
                   <details-modal class="header__search">
                     <details>
-                      <summary class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
+                      <summary class="header__icon--search header__icon--summary link focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
                         <span>
-                          <svg style="width: 100%; height: 100%;" class="modal__toggle-open icon icon-search" aria-hidden="true" focusable="false" role="presentation">
-                            <use href="#icon-search"></use>
-                          </svg>
+
+                          <svg class="modal__toggle-open icon icon-search" aria-hidden="true" focusable="false" role="presentation" id="search" enable-background="new 0 0 96 96" height="512" viewBox="3 3 86 86" width="512" xmlns="http://www.w3.org/2000/svg"><path id="Search" d="m49.557 18.444c.781.781.781 2.047 0 2.828-.391.391-.902.586-1.414.586s-1.023-.195-1.414-.586c-7.02-7.019-18.438-7.019-25.457 0-.781.781-2.047.781-2.828 0s-.781-2.047 0-2.828c8.577-8.578 22.535-8.578 31.113 0zm40.443 63.556c0 2.137-.832 4.146-2.344 5.656-1.51 1.512-3.519 2.344-5.656 2.344s-4.146-.832-5.656-2.344l-21-21c-.781-.781-.781-2.047 0-2.828l2.828-2.828-4.435-4.435c-5.28 4.623-12.184 7.435-19.737 7.435-16.542 0-30-13.458-30-30s13.458-30 30-30 30 13.458 30 30c0 7.553-2.812 14.457-7.435 19.737l4.435 4.435 2.828-2.828c.781-.781 2.047-.781 2.828 0l21 21c1.512 1.51 2.344 3.519 2.344 5.656zm-30-48c0-14.336-11.663-26-26-26s-26 11.664-26 26 11.663 26 26 26 26-11.664 26-26zm26 48c0-1.068-.416-2.072-1.172-2.828l-19.586-19.586-5.656 5.656 19.586 19.586c1.512 1.512 4.145 1.512 5.656 0 .756-.756 1.172-1.76 1.172-2.828z"/></svg>
+
                           <svg style="width: 100%; height: 100%;" class="modal__toggle-close icon icon-close" aria-hidden="true" focusable="false" role="presentation">
                             <use href="#icon-close"></use>
                           </svg>
@@ -523,12 +517,7 @@
                 <details>
                   <summary class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
                     <span>
-                      <svg class="modal__toggle-open icon icon-search" aria-hidden="true" focusable="false" role="presentation">
-                        <use href="#icon-search"></use>
-                      </svg>
-                      <svg class="modal__toggle-close icon icon-close" aria-hidden="true" focusable="false" role="presentation">
-                        <use href="#icon-close"></use>
-                      </svg>
+                      <svg class="modal__toggle-open icon icon-search" aria-hidden="true" focusable="false" role="presentation" id="search" enable-background="new 0 0 96 96" height="512" viewBox="3 3 86 86" width="512" xmlns="http://www.w3.org/2000/svg"><path id="Search" d="m49.557 18.444c.781.781.781 2.047 0 2.828-.391.391-.902.586-1.414.586s-1.023-.195-1.414-.586c-7.02-7.019-18.438-7.019-25.457 0-.781.781-2.047.781-2.828 0s-.781-2.047 0-2.828c8.577-8.578 22.535-8.578 31.113 0zm40.443 63.556c0 2.137-.832 4.146-2.344 5.656-1.51 1.512-3.519 2.344-5.656 2.344s-4.146-.832-5.656-2.344l-21-21c-.781-.781-.781-2.047 0-2.828l2.828-2.828-4.435-4.435c-5.28 4.623-12.184 7.435-19.737 7.435-16.542 0-30-13.458-30-30s13.458-30 30-30 30 13.458 30 30c0 7.553-2.812 14.457-7.435 19.737l4.435 4.435 2.828-2.828c.781-.781 2.047-.781 2.828 0l21 21c1.512 1.51 2.344 3.519 2.344 5.656zm-30-48c0-14.336-11.663-26-26-26s-26 11.664-26 26 11.663 26 26 26 26-11.664 26-26zm26 48c0-1.068-.416-2.072-1.172-2.828l-19.586-19.586-5.656 5.656 19.586 19.586c1.512 1.512 4.145 1.512 5.656 0 .756-.756 1.172-1.76 1.172-2.828z"/></svg>
                     </span>
                   </summary>
                   <div class="search-modal modal__content" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
@@ -690,78 +679,66 @@
               <a aria-label="hidden" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--profile link focus-inset" id="account-icon">
                 <svg height="512" viewBox="0 -1 32 32" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Layer_2" data-name="Layer 2"><path d="m16 17.5a6 6 0 1 1 6-6 6 6 0 0 1 -6 6zm0-10a4 4 0 1 0 4 4 4 4 0 0 0 -4-4z"/><path d="m16 31.5a15 15 0 0 1 -11.59-5.5l-.52-.64.52-.63a15 15 0 0 1 23.18 0l.52.63-.52.64a15 15 0 0 1 -11.59 5.5zm-9.49-6.12a13 13 0 0 0 19 0 13 13 0 0 0 -19 0z"/><path d="m16 31.5a15 15 0 1 1 11.59-5.5 15 15 0 0 1 -11.59 5.5zm0-28a13 13 0 1 0 13 13 13 13 0 0 0 -13-13z"/><circle cx="17.94" cy="25.38" r="1"/><circle cx="14.06" cy="25.38" r="1"/></g></svg>
               </a>
-              <details-modal class="header__search">
-                <details>
-                  <summary class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
-                    <span>
-                      <svg id="search" enable-background="new 0 0 96 96" height="512" viewBox="3 3 86 86" width="512" xmlns="http://www.w3.org/2000/svg"><path id="Search" d="m49.557 18.444c.781.781.781 2.047 0 2.828-.391.391-.902.586-1.414.586s-1.023-.195-1.414-.586c-7.02-7.019-18.438-7.019-25.457 0-.781.781-2.047.781-2.828 0s-.781-2.047 0-2.828c8.577-8.578 22.535-8.578 31.113 0zm40.443 63.556c0 2.137-.832 4.146-2.344 5.656-1.51 1.512-3.519 2.344-5.656 2.344s-4.146-.832-5.656-2.344l-21-21c-.781-.781-.781-2.047 0-2.828l2.828-2.828-4.435-4.435c-5.28 4.623-12.184 7.435-19.737 7.435-16.542 0-30-13.458-30-30s13.458-30 30-30 30 13.458 30 30c0 7.553-2.812 14.457-7.435 19.737l4.435 4.435 2.828-2.828c.781-.781 2.047-.781 2.828 0l21 21c1.512 1.51 2.344 3.519 2.344 5.656zm-30-48c0-14.336-11.663-26-26-26s-26 11.664-26 26 11.663 26 26 26 26-11.664 26-26zm26 48c0-1.068-.416-2.072-1.172-2.828l-19.586-19.586-5.656 5.656 19.586 19.586c1.512 1.512 4.145 1.512 5.656 0 .756-.756 1.172-1.76 1.172-2.828z"/></svg>
-                      <svg class="modal__toggle-close icon icon-close" aria-hidden="true" focusable="false" role="presentation">
-                        <use href="#icon-close" />
-                      </svg>
-                    </span>
-                  </summary>
 
+              <div class="header__search--desk link" style="width: 32px;
+              height: 32px;
+              margin-right: 10px;">
+                <svg style="width: 100%; height: 100%;" id="search" enable-background="new 0 0 96 96" height="512" viewBox="3 3 86 86" width="512" xmlns="http://www.w3.org/2000/svg"><path id="Search" d="m49.557 18.444c.781.781.781 2.047 0 2.828-.391.391-.902.586-1.414.586s-1.023-.195-1.414-.586c-7.02-7.019-18.438-7.019-25.457 0-.781.781-2.047.781-2.828 0s-.781-2.047 0-2.828c8.577-8.578 22.535-8.578 31.113 0zm40.443 63.556c0 2.137-.832 4.146-2.344 5.656-1.51 1.512-3.519 2.344-5.656 2.344s-4.146-.832-5.656-2.344l-21-21c-.781-.781-.781-2.047 0-2.828l2.828-2.828-4.435-4.435c-5.28 4.623-12.184 7.435-19.737 7.435-16.542 0-30-13.458-30-30s13.458-30 30-30 30 13.458 30 30c0 7.553-2.812 14.457-7.435 19.737l4.435 4.435 2.828-2.828c.781-.781 2.047-.781 2.828 0l21 21c1.512 1.51 2.344 3.519 2.344 5.656zm-30-48c0-14.336-11.663-26-26-26s-26 11.664-26 26 11.663 26 26 26 26-11.664 26-26zm26 48c0-1.068-.416-2.072-1.172-2.828l-19.586-19.586-5.656 5.656 19.586 19.586c1.512 1.512 4.145 1.512 5.656 0 .756-.756 1.172-1.76 1.172-2.828z"/></svg>
+              </div>
 
-                  <div class="search-modal modal__content" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
-                    <div class="modal-overlay"></div>
-                    <div class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}" tabindex="-1">
-                      {%- if settings.predictive_search_enabled -%}
-                        <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
-                      {%- endif -%}
-                        <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
-                          <div class="field">
-                            <input class="search__input field__input"
-                              id="Search-In-Modal"
-                              type="search"
-                              name="q"
-                              value=""
-                              placeholder="{{ 'general.search.search' | t }}"
-                              {%- if settings.predictive_search_enabled -%}
-                                role="combobox"
-                                aria-expanded="false"
-                                aria-owns="predictive-search-results-list"
-                                aria-controls="predictive-search-results-list"
-                                aria-haspopup="listbox"
-                                aria-autocomplete="list"
-                                autocorrect="off"
-                                autocomplete="off"
-                                autocapitalize="off"
-                                spellcheck="false"
-                              {%- endif -%}
-                            >
-                            <label class="field__label" for="Search-In-Modal">{{ 'general.search.search' | t }}</label>
-                            <input type="hidden" name="options[prefix]" value="last">
-                            <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-                              <svg class="icon icon-search" aria-hidden="true" focusable="false" role="presentation">
-                                <use href="#icon-search" />
-                              </svg>
-                            </button>
-                          </div>
-
-                          {%- if settings.predictive_search_enabled -%}
-                            <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
-                              <div class="predictive-search__loading-state">
-                                <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-                                </svg>
-                              </div>
-                            </div>
-
-                            <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+              <div class="search-pop-desk">
+                <div class="top-border-nav">
+                </div>
+                {%- if settings.predictive_search_enabled -%}
+                            <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
                           {%- endif -%}
-                        </form>
-                      {%- if settings.predictive_search_enabled -%}
-                        </predictive-search>
-                      {%- endif -%}
-                      <button type="button" class="search-modal__close-button modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
-                        <svg class="icon icon-close" aria-hidden="true" focusable="false" role="presentation">
-                          <use href="#icon-close" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </details>
-              </details-modal>
+                            <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+                              <div class="field">
+                                <button style="left: 0; width: 32px; height: 100%;" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+                                  <svg class="icon icon-search" aria-hidden="true" focusable="false" role="presentation">
+                                    <use href="#icon-search"></use>
+                                  </svg>
+                                </button>
+                                <input class="search__input field__input"
+                                  style="padding-left: 45px;"
+                                  id="Search-In-Modal-1"
+                                  type="search"
+                                  name="q"
+                                  value=""
+                                  placeholder="{{ 'general.search.search' | t }}"
+                                  {%- if settings.predictive_search_enabled -%}
+                                    role="combobox"
+                                    aria-expanded="false"
+                                    aria-owns="predictive-search-results-list"
+                                    aria-controls="predictive-search-results-list"
+                                    aria-haspopup="listbox"
+                                    aria-autocomplete="list"
+                                    autocorrect="off"
+                                    autocomplete="off"
+                                    autocapitalize="off"
+                                    spellcheck="false"
+                                  {%- endif -%}
+                                >
+                                <label style="padding-left: 22px;" class="field__label" for="Search-In-Modal-1">{{ 'general.search.search' | t }}</label>
+                                <input type="hidden" name="options[prefix]" value="last">
+                              </div>
+      
+                              {%- if settings.predictive_search_enabled -%}
+                                <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+                                  <div class="predictive-search__loading-state">
+                                    <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                                    </svg>
+                                  </div>
+                                </div>
+      
+                                <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+                              {%- endif -%}
+                            </form>
+                          {%- if settings.predictive_search_enabled -%}
+                            </predictive-search>
+                          {%- endif -%}
+              </div>
 
               <div class="icon--wishlist">
                 <svg class="heart">
@@ -779,21 +756,27 @@
                 </div>
                 <div class="wishlist-silder">
                 <fc-slider data-slide-to-show="1">
-                  <div class="swiper" style="padding-right: 120px; overflow: inherit;">
+                  <div class="swiper" style="padding-right: 50px; overflow: inherit;">
                     <div class="swiper-wrapper">
                       
                     </div>
                   </div>
                   <div class="slide-button-prev slider-control">
-                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="desk-svg" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M26.0002 52C39.8073 52 52 39.8073 52 26.0002C52 12.1932 39.8073 0 26.0002 0C12.1932 0 0 12.1932 0 26.0002C0.015564 39.8008 12.1992 51.9844 26.0002 52ZM26.0002 3.50029C38.4266 3.50029 48.5002 13.5738 48.5002 26.0002C48.5002 38.4266 38.4266 48.5002 26.0002 48.5002C13.5738 48.5002 3.50029 38.4266 3.50029 26.0002C3.51448 13.5798 13.5798 3.51448 26.0002 3.50029Z" fill="black"/>
                       <path d="M29.471 35.9997C29.769 36.0063 30.0617 35.9199 30.3084 35.7524C30.555 35.5849 30.7433 35.3446 30.8472 35.0652C30.951 34.7857 30.9652 34.4809 30.8877 34.193C30.8103 33.9051 30.6451 33.6486 30.4151 33.4589L21.6381 25.9399L30.4151 18.4235C30.5742 18.3066 30.7074 18.1581 30.8065 17.9872C30.9055 17.8164 30.9683 17.6269 30.9907 17.4307C31.0131 17.2345 30.9948 17.0358 30.9369 16.847C30.879 16.6582 30.7828 16.4834 30.6542 16.3335C30.5256 16.1837 30.3674 16.0621 30.1896 15.9762C30.0118 15.8903 29.8182 15.842 29.6208 15.8344C29.4235 15.8268 29.2267 15.8599 29.0428 15.9318C28.8589 16.0038 28.6919 16.1129 28.5521 16.2525L18.5033 24.8501C18.3455 24.9848 18.2188 25.152 18.1319 25.3403C18.045 25.5287 18 25.7338 18 25.9412C18 26.1487 18.045 26.3537 18.1319 26.5421C18.2188 26.7305 18.3455 26.8978 18.5033 27.0324L28.5521 35.6384C28.8059 35.8639 29.1315 35.9921 29.471 36V35.9997Z" fill="black"/>
                     </svg>
+                    <svg class="mobile-svg" width="30" height="16" viewBox="0 0 30 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M28.8281 6.82812H4.0103L8.12147 2.73687C8.5802 2.28031 8.58196 1.53834 8.12539 1.07961C7.66883 0.620816 6.9268 0.619117 6.46807 1.07562L0.344788 7.16937C0.344378 7.16972 0.344085 7.17013 0.343733 7.17048C-0.113825 7.62705 -0.11529 8.37142 0.343616 8.82951C0.344026 8.82986 0.344319 8.83027 0.344671 8.83062L6.46795 14.9244C6.92662 15.3808 7.66866 15.3792 8.12528 14.9204C8.58184 14.4617 8.58008 13.7197 8.12135 13.2631L4.0103 9.17187H28.8281C29.4754 9.17187 30 8.64722 30 8C30 7.35277 29.4754 6.82812 28.8281 6.82812Z" fill="black"></path>
+                    </svg>
                   </div>
                   <div class="slide-button-next slider-control">
-                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="desk-svg" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M25.9998 0C12.1927 0 0 12.1927 0 25.9998C0 39.8068 12.1927 52 25.9998 52C39.8068 52 52 39.8068 52 25.9998C51.9844 12.1992 39.8008 0.0155639 25.9998 0ZM25.9998 48.4997C13.5734 48.4997 3.49984 38.4262 3.49984 25.9998C3.49984 13.5734 13.5734 3.49984 25.9998 3.49984C38.4262 3.49984 48.4997 13.5734 48.4997 25.9998C48.4855 38.4202 38.4202 48.4855 25.9998 48.4997Z" fill="black"/>
                       <path d="M22.529 16.0003C22.231 15.9937 21.9383 16.0801 21.6916 16.2476C21.445 16.4151 21.2567 16.6554 21.1528 16.9348C21.049 17.2143 21.0348 17.5191 21.1123 17.807C21.1897 18.0949 21.3549 18.3514 21.5849 18.5411L30.3619 26.0601L21.5849 33.5765C21.4258 33.6934 21.2926 33.8419 21.1935 34.0128C21.0945 34.1836 21.0317 34.3731 21.0093 34.5693C20.9869 34.7655 21.0052 34.9642 21.0631 35.153C21.121 35.3418 21.2172 35.5166 21.3458 35.6665C21.4744 35.8163 21.6326 35.9379 21.8104 36.0238C21.9882 36.1097 22.1818 36.158 22.3792 36.1656C22.5765 36.1732 22.7733 36.1401 22.9572 36.0682C23.1411 35.9962 23.3081 35.8871 23.4479 35.7475L33.4967 27.1499C33.6545 27.0152 33.7812 26.848 33.8681 26.6597C33.955 26.4713 34 26.2662 34 26.0588C34 25.8513 33.955 25.6463 33.8681 25.4579C33.7812 25.2695 33.6545 25.1022 33.4967 24.9676L23.4479 16.3616C23.1941 16.1361 22.8685 16.0079 22.529 16V16.0003Z" fill="black"/>
+                    </svg>
+                    <svg class="mobile-svg" width="30" height="16" viewBox="0 0 30 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.17185 9.17188L25.9897 9.17188L21.8785 13.2631C21.4198 13.7197 21.418 14.4617 21.8746 14.9204C22.3312 15.3792 23.0732 15.3809 23.5319 14.9244L29.6552 8.83063C29.6556 8.83028 29.6559 8.82987 29.6563 8.82952C30.1138 8.37295 30.1153 7.62858 29.6564 7.17049C29.656 7.17014 29.6557 7.16973 29.6553 7.16938L23.532 1.07563C23.0734 0.619184 22.3313 0.620766 21.8747 1.07961C21.4182 1.53834 21.4199 2.28032 21.8786 2.73688L25.9897 6.82813L1.17185 6.82813C0.524628 6.82813 -2.09808e-05 7.35278 -2.09808e-05 8C-2.09808e-05 8.64723 0.524628 9.17188 1.17185 9.17188Z" fill="black"></path>
                     </svg>
                   </div>
                   
@@ -1045,7 +1028,19 @@
             fetch_art_date();
 
 
-
+          // search for desktop pop
+          let searchdesh_content =self.querySelector(".search-pop-desk");
+          self.querySelector(".header__search--desk").addEventListener("click", function( event ) {
+            searchdesh_content.classList.add("show");
+            document.querySelector("header.header").style.height = "140px";
+            self.querySelector(".search-pop-desk input.search__input").focus();
+      		});
+          self.querySelector(".search-pop-desk input.search__input").addEventListener("blur", function( event ) {
+            searchdesh_content.classList.remove("show");
+            document.querySelector("header.header").style.height = "75px";
+      		});
+            
+            
             
           // search for mobile pop
         	self.querySelector(".search-icon-wrapper").addEventListener("mouseover", function( event ) {
@@ -1544,6 +1539,13 @@
     font-size: 20px;
     line-height: 24px;
 }
+
+.wishlist-nav .slider-control .desk-svg{
+  display: block;
+}
+.wishlist-nav .slider-control .mobile-svg{
+  display: none;
+}
         
 @media only screen and (max-width: 1300px){
   .thumbs--info {
@@ -1577,6 +1579,10 @@
     .header__inline-menu{
         width: 100%;
     }
+
+    .header__search--desk{
+      display: none !important;
+    }
         
     .header.menu-open .mobile-nav-active-hide,
     .header .header__inline-menu{
@@ -1597,7 +1603,7 @@
     }
 
     .header.menu-open .mobile--icon svg.icon-close{ 
-      transform: scale(0.7);
+      transform: scale(0.7) !important;
     }
         
     .header .mobile--icon svg:nth-child(2),
@@ -1606,12 +1612,25 @@
         transform: scale(0.1);
         z-index: -1;
     }
+    
     .wishlist-nav .slide-button-prev{
-      display: none;
+      position: absolute !important;
+      top: auto !important;
+      display: block;
     }
     .wishlist-nav .slide-button-next {
+      position: absolute !important;
+      top: auto !important;
+      display: block;
+    }
+
+    .wishlist-nav .slider-control .desk-svg{
       display: none;
     }
+    .wishlist-nav .slider-control .mobile-svg{
+      display: block;
+    }
+    
        
 }
 
@@ -1776,6 +1795,36 @@
   left: 0;
 }
 
+.search-pop-desk {
+  position: absolute;
+  left: -9999px;
+  width: 100%;
+  top: 200px;
+  opacity: 0;
+  z-index: -999;
+  padding: 22px 30px 0;
+  transition-property: top!important;
+  transition-duration: .5s!important;
+  transition-delay: 0s!important;
+  max-width: 1300px;
+}
+
+.search-pop-desk.show {
+  top: 60px;
+  opacity: 1;
+  z-index: 7;
+  left: 0;
+}
+
+.mobile--icon.search-icon-wrapper{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .search-modal.mobile--devices .search-modal__content{
   display: flex;
@@ -1791,22 +1840,37 @@
   width: 100%;
 }
 
-.search-modal.mobile--devices .field:after,
-.search-modal.mobile--devices .field:hover.field:after{
+.search-modal__form .field:after,
+.search-modal__form .field:hover.field:after{
   box-shadow: none;
   border: none;
 }
 
-.search-modal.mobile--devices .field input:focus{
+.search-modal__form .field input:focus{
 	border-color: inherit;
     -webkit-box-shadow: none;
 	box-shadow: none;
 }
 
-.search-modal.mobile--devices .field svg.icon-search{
-  width: 100%;
-  height: 100%;
+.search-modal__form .field svg.icon-search{
+  width: 32px;
+  height: 32px;
   transform: scale(0.8);
+}
+
+form.search-modal__form{
+  max-width: 100%;
+  width: 100%;
+}
+
+.header__search .modal__toggle-open.icon-search{
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.search-modal__form .search__input.field__input{
+  padding-right: 5rem;
+  background: none;
 }
 
 {% endstylesheet %}
