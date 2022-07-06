@@ -1,6 +1,13 @@
 
 
 {%- style -%}
+  .cart--mainPage{
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: column;
+  }
+
   .cart--items {
     display: grid;
     grid-template-columns: 100px minmax(200px, auto) minmax(50px, 120px) minmax(80px, 160px) minmax(60px, 120px) minmax(30px, 90px);
@@ -11,7 +18,7 @@
   .cart-item--form{
     width: 100%;
     max-width: 1230px;
-    padding: 30px;
+    padding: 20px;
     border: 1px solid #D7D7D7;
     border-radius: 3px;
   }
@@ -138,32 +145,6 @@
     font-weight: bold;
   }
 
-  @media only screen and (max-width: 989px){
-    .cart--items {
-      display: grid;
-      grid-template-columns: 100px minmax(200px, auto) minmax(30px, 150px);
-      background: #EEEEEE;
-      margin-bottom: 15px;
-    }
-    .cart-items--header{
-      display: none;
-    }
-    .cart--items > .items--col.items--end > * {
-      margin-right: 15px;
-      justify-content: space-around;
-    }
-    .cart-item__error{
-      margin-top: 0rem;
-    }
-
-    .cart-item--price{
-      display: flex;
-    }
-    .cart-item--price > * {
-      margin-right: 10px;
-    }
-  }
-
   .cart--headFoot{
     font-family: 'Josefin Sans';
     display: flex;
@@ -171,8 +152,13 @@
     justify-content: space-between;
     width: 100%;
     max-width: 1230px;
-    padding: 12px;
+    padding: 12px 0;
     color: #000000;
+  }
+
+  .cart--footerSub{
+    flex-direction: row-reverse;
+    margin-top: 20px;
   }
 
   .cart--securePayment{
@@ -210,7 +196,7 @@
     font-size: 26px;
     font-weight: bold;
     color: #000000;
-    padding: 10px;
+    padding: 10px 0;
   }
   .item--counter-head{
     padding: 0px 10px;
@@ -218,12 +204,51 @@
     color: #000000;
   }
 
+  @media only screen and (max-width: 989px){
+    .cart--mainPage{
+      padding: 0 20px;
+    }
+    .cart-item--form{
+      padding: 12px;
+    }
+    .cart--items {
+      display: grid;
+      grid-template-columns: 100px minmax(200px, auto) minmax(30px, 150px);
+      background: #EEEEEE;
+      margin-bottom: 15px;
+    }
+    .cart-items--header{
+      display: none;
+    }
+    .cart--items > .items--col.items--end > * {
+      margin-right: 15px;
+      justify-content: space-around;
+    }
+    .cart-item__error{
+      margin-top: 0rem;
+    }
+
+    .cart-item--price{
+      display: flex;
+    }
+    .cart-item--price > * {
+      margin-right: 10px;
+    }
+    .cart--footerSub{
+      flex-direction: column;
+      align-items: center;
+    }
+    .cart--footerSub > *{
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
 
 {%- endstyle -%}
 
 <script src="{{ 'cart-alternate.js' | asset_url }}" defer="defer"></script>
 
-<div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div class="cart--mainPage">
   <div class="cart--headFoot">
     <div>
       <span class="cart--header-you">Your Cart</span><span class="item--counter-head">Items (<span id="cart-count--bubble">0</span>)</span>
@@ -232,7 +257,9 @@
       <a href="/collections/all" class="continue-shopping underlined-link">Continue shopping</a>
     </div>
   </div>
-  <form action="{{ routes.cart_url }}" class="cart__contents cart-item--form critical-hidden" method="post" id="cart">
+
+  <div class="cart-item--form">
+  <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
   
   <cart-all-item> 
     <div class="cart-items--header">
@@ -429,7 +456,26 @@
       </div>
     </cart-all-item>
   </form>
-  <div class="cart--headFoot" style="margin-top: 20px;">
+  </div>
+  <div class="cart--headFoot cart--footerSub">
+    <div class="cart--subTotal--checkOut">
+      <div class="cart--subTotal">
+        <span>
+          Subtotal
+        </span>
+        <span>
+          $239.97
+        </span>
+      </div>
+      <div>
+        Taxes and shipping calculated at checkout
+      </div>
+      <div class="cart--checkOut">
+        <button type="submit" id="checkout" class="button--skewed button button--full-width button--primary" name="checkout" form="cart">
+          Check out
+        </button>
+      </div>
+    </div>
     <div class="cart--securePayment">
       <div>
         Secure Payment:
@@ -484,24 +530,6 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3829 13.9916H13.9141L13.8691 14.2617C18.1245 15.3414 20.9401 17.9475 22.1087 21.0802L20.9203 15.0913C20.7153 14.2653 20.1194 14.0205 19.3829 13.9916Z" fill="#EC982D"/>
           </svg>            
         </span>
-      </div>
-    </div>
-    <div class="cart--subTotal--checkOut">
-      <div class="cart--subTotal">
-        <span>
-          Subtotal
-        </span>
-        <span>
-          $239.97
-        </span>
-      </div>
-      <div>
-        Taxes and shipping calculated at checkout
-      </div>
-      <div class="cart--checkOut">
-        <button type="submit" id="checkout" class="button--skewed button button--full-width button--primary" name="checkout" form="cart">
-          Check out
-        </button>
       </div>
     </div>
   </div>
