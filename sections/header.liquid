@@ -755,8 +755,7 @@
                   <h2>Your Wishlist</h2>
                 </div>
                 <div class="wishlist-silder">
-                <fc-slider data-slide-to-show="1">
-                  <div class="swiper" style="padding-right: 50px; overflow: inherit;">
+                  <div class="wishlist-swiper" style="padding-right: 8px; overflow: hidden;">
                     <div class="swiper-wrapper">
                       
                     </div>
@@ -780,7 +779,6 @@
                     </svg>
                   </div>
                   
-                </fc-slider>
                 </div>
               </div>
                             
@@ -829,6 +827,35 @@
 {%- render 'cart-notification', color_scheme: section.settings.color_scheme -%}
 
 {% javascript %}
+
+
+var wishlistswiper = new Swiper(".wishlist-swiper", {
+  slidesPerView: 2,
+  slidesPerGroup: 2,
+  spaceBetween: 10,
+  centeredSlides: false,
+  grabCursor: true,
+  keyboard: {
+    enabled: true,
+  },
+  breakpoints: {
+    750: {
+      slidesPerView: 3,
+      slidesPerGroup: 3,
+      spaceBetween: 10,
+    },
+    990: {
+      slidesPerView: 4,
+      slidesPerGroup: 4,
+      spaceBetween: 20,
+    }
+  },
+  navigation: {
+    nextEl: ".slide-button-next",
+    prevEl: ".slide-button-prev",
+  }
+});
+
                             
   class StickyHeader extends HTMLElement {
     constructor() {
@@ -858,6 +885,7 @@
 		mi.addEventListener("mouseover", function( event ) {
 			let list_content = mi.querySelector(".list-menu-content");
 			if(list_content){
+        self.querySelector(".search-pop-desk").classList.remove('show');
 				let total_height = list_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
 				document.querySelector("header.header").style.height = (total_height+10)+"px";
 			}else{
@@ -871,7 +899,8 @@
         if (header_el.classList.contains('menu-open')) {
             header_el.classList.remove('menu-open');
         }else{
-            header_el.classList.add('menu-open');
+          self.querySelector(".search-pop-desk").classList.remove('show');
+          header_el.classList.add('menu-open');
         }
       });
                             
@@ -909,6 +938,7 @@
           });
           ["mouseover"].forEach((evt)=>{
             il.addEventListener(evt, function( event ) {
+              self.querySelector(".search-pop-desk").classList.remove('show');
                 if(collection_img.indexOf('assets/no-image')!==-1){
                    list_menu_content.classList.add("unknown--thumbs");
                    return;       
@@ -937,21 +967,25 @@
       		});
       		wishlist_content.addEventListener("mouseover", function( event ) {
       			if(wishlist_content){
+              self.querySelector(".search-pop-desk").classList.remove('show');
+              wishlistswiper.update();
               wishlist_content.classList.add("show");
       				let total_height = wishlist_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
       				document.querySelector("header.header").style.height = (total_height+30)+"px";
       			}else{
-                    wishlist_content.classList.remove("show");
+              wishlist_content.classList.remove("show");
       				document.querySelector("header.header").style.height = "75px";
       			}
       		});
       		self.querySelector(".icon--wishlist").addEventListener("mouseover", function( event ) {
       			if(wishlist_content){
-                    wishlist_content.classList.add("show");
+              self.querySelector(".search-pop-desk").classList.remove('show');
+              wishlistswiper.update();
+              wishlist_content.classList.add("show");
       				let total_height = wishlist_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
       				document.querySelector("header.header").style.height = (total_height+30)+"px";
       			}else{
-                    wishlist_content.classList.remove("show");
+              wishlist_content.classList.remove("show");
       				document.querySelector("header.header").style.height = "75px";
       			}
       		});
@@ -999,6 +1033,8 @@
       		});
       		cartnav_content.addEventListener("mouseover", function( event ) {
       			if(cartnav_content){
+              self.querySelector(".search-pop-desk").classList.remove('show');
+
               cartnav_content.classList.add("show");
       				let total_height = cartnav_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
       				document.querySelector("header.header").style.height = (total_height+30)+"px";
@@ -1009,7 +1045,9 @@
       		});
       		self.querySelector("#cart-icon-bubble").addEventListener("mouseover", function( event ) {
       			if(cartnav_content){
-                    cartnav_content.classList.add("show");
+              self.querySelector(".search-pop-desk").classList.remove('show');
+
+              cartnav_content.classList.add("show");
       				let total_height = cartnav_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
       				document.querySelector("header.header").style.height = (total_height+30)+"px";
       			}else{
@@ -1029,15 +1067,17 @@
 
 
           // search for desktop pop
-          let searchdesh_content =self.querySelector(".search-pop-desk");
           self.querySelector(".header__search--desk").addEventListener("click", function( event ) {
-            searchdesh_content.classList.add("show");
-            document.querySelector("header.header").style.height = "140px";
-            self.querySelector(".search-pop-desk input.search__input").focus();
-      		});
-          self.querySelector(".search-pop-desk input.search__input").addEventListener("blur", function( event ) {
-            searchdesh_content.classList.remove("show");
-            document.querySelector("header.header").style.height = "75px";
+              let search_el = self.querySelector(".search-pop-desk");
+              if (search_el.classList.contains('show')) {
+                search_el.classList.remove('show');
+                  document.querySelector("header.header").style.height = "75px";
+              }else{
+                search_el.classList.add('show');
+                  document.querySelector("header.header").style.height = "140px";
+                  self.querySelector(".search-pop-desk input.search__input").focus();
+              }
+              
       		});
             
             
@@ -1750,6 +1790,12 @@
 }
 
 @media only screen and (max-width: 989px){
+  .wishlist-nav{
+    padding: 22px 5px 0;
+  }
+  .wishlist-nav .wishlist--title{
+    padding: 0 20px;
+  }
   .cart-nav-header {
     width: 0px;
   }
