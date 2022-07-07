@@ -223,7 +223,7 @@
     }
     .cart--items {
       display: grid;
-      grid-template-columns: 100px minmax(200px, auto) minmax(30px, 150px);
+      grid-template-columns: 100px minmax(100px, auto) minmax(30px, 150px);
       background: #EEEEEE;
       margin-bottom: 15px;
     }
