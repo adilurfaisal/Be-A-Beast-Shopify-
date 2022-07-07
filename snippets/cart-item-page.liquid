@@ -1,0 +1,195 @@
+
+  <cart-all-item> 
+    <div class="cart-items--header">
+      <div>Product</div>
+      <div></div>
+      <div>Price</div>
+      <div>Quantity</div>
+      <div>Total</div>
+      <div>Action</div>
+    </div>
+    <temp id="cart-items-alt" class="cart-items--mobile cart-hidden" media="mobile">
+      <div class="cart--items product--card-media clip--corner clip--corner-corner-10">
+        <div class="items--col items--center cart-items--image">
+            <a href="${url}">
+              <div style="height: 100%;">
+                <img src="${featured_image.url}"
+                  class=""
+                  alt="${featured_image.alt}"
+                  loading="lazy"
+                  width="150"
+                >
+            </div>
+          </a>
+        </div>
+
+        <div class="items--col">
+            <a href="${url}" class="cart-item__name h4 break">${title}</a>
+            <div class="cart-iteams--variants">
+              <div class="product-option">${options_with_values.0.value}</div>
+              <div class="product-option">${options_with_values.1.value}</div>
+            </div>
+
+            <div class="position--Relative">
+            <div class="cart-item--price">
+              <span class="cart-item--totalPrice">${original_line_price}</span>
+  
+              <div class="cart-item__error" id="Line-item-error-1" role="alert">
+                <small class="cart-item__error-text"></small>
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                  <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"></circle>
+                  <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"></circle>
+                  <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"></path>
+                  <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                </path></svg>
+              </div>
+
+            </div>
+
+            <div class="loading-overlay">
+              <div class="loading-overlay__spinner">
+                <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+
+        <div class="items--col items--end justify--around">
+
+          <div class="cart-item--price">
+            ${original_price}
+          </div>
+
+          <cart-item-quantity class="cart-quantity">
+            <button class="quantity__button" name="minus" type="button">
+              {% render 'icon-minus' %}
+            </button>
+            <input class="quantity__input"
+              type="number"
+              name="updates[]"
+              value="${quantity}"
+              min="0"
+            >
+            <button class="quantity__button" name="plus" type="button">
+              {% render 'icon-plus' %}
+            </button>
+          </cart-item-quantity>
+
+          <cart-remove-btn class="cart-item--quantity">
+            <a href="{{ item.url_to_remove }}" class="button button--tertiary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="presentation" class="icon icon-remove">
+                <path d="M8.93391 0C9.16496 0.0816327 9.396 0.163265 9.62705 0.326531C10.0121 0.571429 10.1662 1.06122 10.2432 1.55102C10.2432 1.71429 10.2432 1.87755 10.2432 2.04082C10.3202 2.04082 10.3202 2.04082 10.3972 2.04082C11.2444 2.04082 12.1685 2.04082 13.0157 2.04082C13.7089 2.04082 14.1709 2.69388 13.9399 3.34694C13.8629 3.67347 13.6318 3.91837 13.3238 4C13.2468 4 13.0927 4 13.0157 4C9.01093 4 5.00613 4 1.07836 4C0.693284 4 0.385223 3.91837 0.154177 3.5102C-0.230899 2.93878 0.154177 2.12245 0.770299 2.04082C0.847314 2.04082 1.00134 2.04082 1.07836 2.04082C1.92553 2.04082 2.77269 2.04082 3.61986 2.04082C3.69688 2.04082 3.69688 2.04082 3.85091 2.04082C3.85091 1.79592 3.85091 1.55102 3.85091 1.38776C3.69688 0.653061 4.15897 0.163265 4.77509 0C4.77509 0 4.77509 0 4.8521 0C6.16136 0 7.54764 0 8.93391 0ZM9.24197 1.95918C9.24197 1.79592 9.24197 1.71429 9.24197 1.55102C9.24197 1.14286 9.08794 0.979592 8.70286 0.979592C8.00973 0.979592 7.39361 0.979592 6.70047 0.979592C6.16136 0.979592 5.62226 0.979592 5.08315 0.979592C4.85211 0.979592 4.62106 1.14286 4.62106 1.38776C4.62106 1.55102 4.62106 1.79592 4.62106 2.04082C6.08435 1.95918 7.62465 1.95918 9.24197 1.95918Z" fill="white"/>
+                <path d="M1 5C4.97452 5 9.02548 5 13 5C12.9236 5.52381 12.9236 6.04762 12.8471 6.57143C12.7707 7.46939 12.6943 8.36735 12.6178 9.34014C12.5414 10.3878 12.465 11.4354 12.3121 12.483C12.2357 13.2313 12.1592 13.9796 12.0828 14.7279C12.0064 15.4762 11.3949 16 10.6306 16C8.10828 16 5.66242 16 3.14013 16C2.3758 16 1.76433 15.4762 1.6879 14.7279C1.61147 13.6803 1.53503 12.5578 1.38217 11.5102C1.30573 10.3878 1.15287 9.19048 1.07643 8.06803C1.15287 7.02041 1.07643 5.97279 1 5ZM5.12739 13.7551C5.05096 12.932 5.05096 12.2585 4.97452 11.5102C4.89809 10.2381 4.82166 9.04082 4.74522 7.76871C4.74522 7.31973 4.66879 6.79592 4.66879 6.34694C4.66879 6.12245 4.43949 5.97279 4.21019 5.89796C3.98089 5.89796 3.75159 6.04762 3.75159 6.27211C3.75159 6.34694 3.75159 6.4966 3.75159 6.57143C3.82803 7.84354 3.90446 9.04082 3.98089 10.3129C4.05732 11.4354 4.13376 12.6327 4.21019 13.7551C4.21019 13.9796 4.28662 14.0544 4.51592 14.1293C4.82166 14.2041 5.12739 13.9796 5.12739 13.7551ZM10.2484 6.4966C10.2484 6.42177 10.2484 6.42177 10.2484 6.4966C10.2484 6.12245 10.0955 5.97279 9.78981 5.89796C9.56051 5.89796 9.33121 6.12245 9.33121 6.34694C9.33121 6.4966 9.33121 6.64626 9.33121 6.79592C9.25478 7.84354 9.17834 8.89116 9.10191 9.93878C9.02548 11.1361 8.94904 12.3333 8.87261 13.6054C8.87261 13.9048 9.02548 14.1293 9.33121 14.1293C9.63694 14.1293 9.78981 13.9048 9.78981 13.6054C9.86624 12.7823 9.86624 11.8844 9.94268 11.0612C10.0191 9.56463 10.0955 7.9932 10.2484 6.4966ZM7.42038 10.0136C7.42038 8.81633 7.42038 7.69388 7.42038 6.4966C7.42038 6.42177 7.42038 6.34694 7.42038 6.27211C7.42038 5.97279 7.03822 5.7483 6.73248 5.89796C6.57962 6.04762 6.50318 6.19728 6.50318 6.42177C6.50318 8.81633 6.50318 11.2857 6.50318 13.6803V13.7551C6.50318 13.9048 6.65605 14.0544 6.80892 14.1293C7.11465 14.2789 7.42038 14.0544 7.42038 13.6803C7.42038 12.4082 7.42038 11.2109 7.42038 10.0136Z" fill="white"/>
+              </svg>
+            </a>
+          </cart-remove-btn>
+
+
+        </div>       
+
+
+      </div>
+
+    </temp>
+    
+      <temp id="cart-items-alt" class="cart-hidden" media="desktop">
+        <div class="cart--items product--card-media clip--corner clip--corner-corner-10">
+          <div class="items--col items--center cart-items--image">
+              <a href="${url}">
+                <div style="height: 100%;">
+                  <img src="${featured_image.url}"
+                    class=""
+                    alt="${featured_image.alt}"
+                    loading="lazy"
+                    width="150"
+                  >
+              </div>
+            </a>
+          </div>
+
+          <div class="items--col">
+            <a href="${url}" class="cart-item__name h4 break">${title}</a>
+            <div class="cart-iteams--variants">
+              <div class="product-option">${options_with_values.0.value}</div>
+              <div class="product-option">${options_with_values.1.value}
+
+                <div class="cart-item__error" id="Line-item-error-1" role="alert">
+                  <small class="cart-item__error-text"></small>
+                  <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                    <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"></circle>
+                    <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"></circle>
+                    <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"></path>
+                    <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                  </path></svg>
+                </div>
+
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="items--col items--center">
+            <div class="cart-item--price">
+              ${original_price}
+            </div>
+          </div>
+
+          <div class="items--col items--center">
+            <cart-item-quantity class="cart-quantity">
+              <button class="quantity__button" name="minus" type="button">
+                {% render 'icon-minus' %}
+              </button>
+              <input class="quantity__input"
+                type="number"
+                name="updates[]"
+                value="${quantity}"
+                min="0"
+              >
+              <button class="quantity__button" name="plus" type="button">
+                {% render 'icon-plus' %}
+              </button>
+            </cart-item-quantity>
+
+
+          </div>
+
+          <div class="items--col items--center">
+            <div class="cart-item--price cart-item--totalPrice">
+              ${original_line_price}
+            </div>
+
+            <div class="loading-overlay">
+              <div class="loading-overlay__spinner">
+                <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="items--col items--center">
+            <cart-remove-btn class="cart-item--quantity">
+              <a href="{{ item.url_to_remove }}" class="button button--tertiary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="presentation" class="icon icon-remove">
+                  <path d="M8.93391 0C9.16496 0.0816327 9.396 0.163265 9.62705 0.326531C10.0121 0.571429 10.1662 1.06122 10.2432 1.55102C10.2432 1.71429 10.2432 1.87755 10.2432 2.04082C10.3202 2.04082 10.3202 2.04082 10.3972 2.04082C11.2444 2.04082 12.1685 2.04082 13.0157 2.04082C13.7089 2.04082 14.1709 2.69388 13.9399 3.34694C13.8629 3.67347 13.6318 3.91837 13.3238 4C13.2468 4 13.0927 4 13.0157 4C9.01093 4 5.00613 4 1.07836 4C0.693284 4 0.385223 3.91837 0.154177 3.5102C-0.230899 2.93878 0.154177 2.12245 0.770299 2.04082C0.847314 2.04082 1.00134 2.04082 1.07836 2.04082C1.92553 2.04082 2.77269 2.04082 3.61986 2.04082C3.69688 2.04082 3.69688 2.04082 3.85091 2.04082C3.85091 1.79592 3.85091 1.55102 3.85091 1.38776C3.69688 0.653061 4.15897 0.163265 4.77509 0C4.77509 0 4.77509 0 4.8521 0C6.16136 0 7.54764 0 8.93391 0ZM9.24197 1.95918C9.24197 1.79592 9.24197 1.71429 9.24197 1.55102C9.24197 1.14286 9.08794 0.979592 8.70286 0.979592C8.00973 0.979592 7.39361 0.979592 6.70047 0.979592C6.16136 0.979592 5.62226 0.979592 5.08315 0.979592C4.85211 0.979592 4.62106 1.14286 4.62106 1.38776C4.62106 1.55102 4.62106 1.79592 4.62106 2.04082C6.08435 1.95918 7.62465 1.95918 9.24197 1.95918Z" fill="white"/>
+                  <path d="M1 5C4.97452 5 9.02548 5 13 5C12.9236 5.52381 12.9236 6.04762 12.8471 6.57143C12.7707 7.46939 12.6943 8.36735 12.6178 9.34014C12.5414 10.3878 12.465 11.4354 12.3121 12.483C12.2357 13.2313 12.1592 13.9796 12.0828 14.7279C12.0064 15.4762 11.3949 16 10.6306 16C8.10828 16 5.66242 16 3.14013 16C2.3758 16 1.76433 15.4762 1.6879 14.7279C1.61147 13.6803 1.53503 12.5578 1.38217 11.5102C1.30573 10.3878 1.15287 9.19048 1.07643 8.06803C1.15287 7.02041 1.07643 5.97279 1 5ZM5.12739 13.7551C5.05096 12.932 5.05096 12.2585 4.97452 11.5102C4.89809 10.2381 4.82166 9.04082 4.74522 7.76871C4.74522 7.31973 4.66879 6.79592 4.66879 6.34694C4.66879 6.12245 4.43949 5.97279 4.21019 5.89796C3.98089 5.89796 3.75159 6.04762 3.75159 6.27211C3.75159 6.34694 3.75159 6.4966 3.75159 6.57143C3.82803 7.84354 3.90446 9.04082 3.98089 10.3129C4.05732 11.4354 4.13376 12.6327 4.21019 13.7551C4.21019 13.9796 4.28662 14.0544 4.51592 14.1293C4.82166 14.2041 5.12739 13.9796 5.12739 13.7551ZM10.2484 6.4966C10.2484 6.42177 10.2484 6.42177 10.2484 6.4966C10.2484 6.12245 10.0955 5.97279 9.78981 5.89796C9.56051 5.89796 9.33121 6.12245 9.33121 6.34694C9.33121 6.4966 9.33121 6.64626 9.33121 6.79592C9.25478 7.84354 9.17834 8.89116 9.10191 9.93878C9.02548 11.1361 8.94904 12.3333 8.87261 13.6054C8.87261 13.9048 9.02548 14.1293 9.33121 14.1293C9.63694 14.1293 9.78981 13.9048 9.78981 13.6054C9.86624 12.7823 9.86624 11.8844 9.94268 11.0612C10.0191 9.56463 10.0955 7.9932 10.2484 6.4966ZM7.42038 10.0136C7.42038 8.81633 7.42038 7.69388 7.42038 6.4966C7.42038 6.42177 7.42038 6.34694 7.42038 6.27211C7.42038 5.97279 7.03822 5.7483 6.73248 5.89796C6.57962 6.04762 6.50318 6.19728 6.50318 6.42177C6.50318 8.81633 6.50318 11.2857 6.50318 13.6803V13.7551C6.50318 13.9048 6.65605 14.0544 6.80892 14.1293C7.11465 14.2789 7.42038 14.0544 7.42038 13.6803C7.42038 12.4082 7.42038 11.2109 7.42038 10.0136Z" fill="white"/>
+                </svg>
+              </a>
+            </cart-remove-btn>
+
+          </div>
+
+          
+
+
+        </div>
+
+      </temp>
+      <div id="cart-item-loader">
+        
+      </div>
+    </cart-all-item>

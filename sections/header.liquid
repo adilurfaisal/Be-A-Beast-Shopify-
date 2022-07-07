@@ -805,10 +805,10 @@
                   </div>
                   <div class="cart-body">
                       <div class="main-cart">
-      
+                        {% render 'cart-item-page-mini' %}
                       </div>
                       <div class="secondary-cart">
-      
+                        {% render 'cart-recommended-mini' %}
                       </div>
                   </div>
 
@@ -1018,52 +1018,18 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
             });
           });
 
-
-
-         
-          // cart button
-      		let cartnav_content =self.querySelector(".cart-nav-header");
-        	self.querySelector("#cart-icon-bubble").addEventListener("mouseout", function( event ) {
-                cartnav_content.classList.remove("show");
-      			document.querySelector("header.header").style.height = "75px";
-      		});
-        	cartnav_content.addEventListener("mouseout", function( event ) {
-                cartnav_content.classList.remove("show");
-      			document.querySelector("header.header").style.height = "75px";
-      		});
-      		cartnav_content.addEventListener("mouseover", function( event ) {
-      			if(cartnav_content){
-              self.querySelector(".search-pop-desk").classList.remove('show');
-
-              cartnav_content.classList.add("show");
-      				let total_height = cartnav_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
-      				document.querySelector("header.header").style.height = (total_height+30)+"px";
-      			}else{
-                    cartnav_content.classList.remove("show");
-      				document.querySelector("header.header").style.height = "75px";
-      			}
-      		});
-      		self.querySelector("#cart-icon-bubble").addEventListener("mouseover", function( event ) {
-      			if(cartnav_content){
-              self.querySelector(".search-pop-desk").classList.remove('show');
-
-              cartnav_content.classList.add("show");
-      				let total_height = cartnav_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
-      				document.querySelector("header.header").style.height = (total_height+30)+"px";
-      			}else{
-                    cartnav_content.classList.remove("show");
-      				document.querySelector("header.header").style.height = "75px";
-      			}
-        	});
-
-            let fetch_art_date = async () => {
-                    const response = await fetch(`${window.Shopify.routes.root}cart?view=alternate`);
-                    const text = await response.text();
-                    const parser = new DOMParser();
-                    const node = parser.parseFromString(text.toString(), 'text/html').querySelector('div.shopify-section');
-                    self.querySelector(".cart-nav-header .cart-body .main-cart").append(node);
+          // cart button nav
+          self.querySelector("#cart-icon-bubble").addEventListener("click", function( event ) {
+            let cartnav_content =self.querySelector(".cart-nav-header");
+            if (cartnav_content.classList.contains('show')) {
+              cartnav_content.classList.remove('show');
+              document.querySelector("header.header").style.height = "75px";
+            }else{
+              cartnav_content.classList.add('show');
+              let total_height = cartnav_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
+              document.querySelector("header.header").style.height = (total_height+30)+"px";
             }
-            fetch_art_date();
+      		});
 
 
           // search for desktop pop
@@ -1752,6 +1718,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     position: absolute;
     max-height: 610px;
     overflow-y: auto;
+    overflow-x: hidden;
     left: -9999px;
     width: 100%;
     top: 200px;
@@ -1796,9 +1763,6 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
   .wishlist-nav .wishlist--title{
     padding: 0 20px;
   }
-  .cart-nav-header {
-    width: 0px;
-  }
 }
         
 .cart-nav-header .cart-body{
@@ -1812,11 +1776,24 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     border: 1px solid;
     border-image: linear-gradient(to top,rgba(217,217,217,0) 10%,rgba(0,0,0,.3) 50%,rgba(217,217,217,0) 90%);
     border-image-width: 100% 1px 0px 0px;
+    padding: 20px;
 }
         
 .cart-nav-header .cart-body .secondary-cart{
     width: 40%;
 }
+
+@media only screen and (max-width: 989px){
+  .cart-nav-header .cart-body .main-cart{
+      width: 100%;
+      padding: 0;
+  }
+          
+  .cart-nav-header .cart-body .secondary-cart{
+      width: 100%;
+  }
+}
+
 /*
 .wishlist-nav .product--media-featured{
   position: relative;

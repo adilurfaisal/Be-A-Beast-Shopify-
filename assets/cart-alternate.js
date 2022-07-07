@@ -3,12 +3,24 @@ class CartRecommended extends HTMLElement {
     super();
     this.fetchRender();
     this.cartRecoSwiper = null;
+
+   this.mobileOpt = {
+    count: this.getAttribute("data-mobile-count") ? this.getAttribute("data-mobile-count") : 2,
+    control: this.getAttribute("data-mobile-control") ? this.getAttribute("data-mobile-control") : false,
+   }
+   this.desktopOpt = {
+    count: this.getAttribute("data-desktop-count") ? this.getAttribute("data-desktop-count") : 2,
+    control: this.getAttribute("data-desktop-control") ? this.getAttribute("data-desktop-control") : true,
+   }
+
   }
 
   connectedCallback() {
     if(this.cartRecoSwiper==null){
       this.cartRecoSwiper = new Swiper(this.querySelector(".cart-recommended-swiper"), {
+        slidesPerView: `${this.mobileOpt.count}`,
         spaceBetween: 20,
+        freeMode: true,
         centeredSlides: false,
         grabCursor: true,
         keyboard: {
@@ -16,9 +28,9 @@ class CartRecommended extends HTMLElement {
         },
         breakpoints: {
           990: {
-            freeMode: true,
-            slidesPerView: 4,
-            slidesPerGroup: 4,
+            freeMode: false,
+            slidesPerView: `${this.desktopOpt.count}`,
+            slidesPerGroup: `${this.desktopOpt.count}`,
             spaceBetween: 25,
           }
         },
@@ -178,6 +190,9 @@ class CartItemsAlt extends HTMLElement {
           })
         }, 100)
       }
+      if(cartAllItem.cardDetails.items.length!=state.items.length){
+        document.querySelector("cart-recommended").fetchRender();
+      }
       document.querySelectorAll("cart-all-item").forEach((el)=>{
         el.render(state);
       })
@@ -284,10 +299,11 @@ class CartAllItem extends HTMLElement {
 
   render(cartItems){
     let self = this;
-    self.cardDetails = cartItems;
+    self.cardDetails = (cartItems==null) ? self.cardDetails : cartItems;
       self.querySelector("#cart-item-loader").innerHTML = "";
       cartItems.items.forEach((d)=>{
         let cartmediaVal = (window.innerWidth>989) ? 'desktop' : 'mobile';
+        console.log(window.innerWidth, cartmediaVal)
         let cartitemtemp = self.querySelector(`#cart-items-alt[media='${cartmediaVal}']`).cloneNode(true);
         cartitemtemp.classList.remove("cart-hidden");
         let cartitemalt = document.createElement("cart-items-alt");
@@ -316,7 +332,9 @@ class CartAllItem extends HTMLElement {
         })
       }));
 
-      self.closest('.cart--mainPage').querySelector('.cart--subTotalUSD').innerHTML = `$${(cartItems.original_total_price/100).toFixed(2)}`;
+      document.querySelectorAll('.cart--subTotalUSD').forEach((el)=>{
+        el.innerHTML = `$${(cartItems.original_total_price/100).toFixed(2)}`;
+      })
   }
 
   updateQty() {
