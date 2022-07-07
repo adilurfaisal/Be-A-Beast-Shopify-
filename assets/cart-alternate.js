@@ -1,4 +1,69 @@
-let cartItems = {};
+class CartRecommended extends HTMLElement {
+  constructor() {
+    super();
+    this.fetchRender();
+    this.cartRecoSwiper = null;
+  }
+
+  connectedCallback() {
+    if(this.cartRecoSwiper==null){
+      this.cartRecoSwiper = new Swiper(this.querySelector(".cart-recommended-swiper"), {
+        spaceBetween: 20,
+        centeredSlides: false,
+        grabCursor: true,
+        keyboard: {
+          enabled: true,
+        },
+        breakpoints: {
+          990: {
+            freeMode: true,
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+            spaceBetween: 25,
+          }
+        },
+        navigation: {
+          nextEl: ".slide-button-next",
+          prevEl: ".slide-button-prev",
+        }
+      });
+    }
+  }
+
+  fetchRender(){
+    let self = this;
+    let fetchUrl = `${window.Shopify.routes.root}cart/?view=metafields`;
+    fetch(`${fetchUrl}`, { method: 'GET' })
+    .then(response => {
+      return response.text();
+    })
+    .then((html) => {
+      document.querySelectorAll("cart-recommended").forEach((el)=>{
+        let parser = new DOMParser();
+        let doc = parser.parseFromString(html, "text/html").querySelectorAll('div.shopify-section div.swiper-slide');
+        el.render(doc);
+      })
+
+    }) 
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  render(doc){
+    let self = this;
+    self.querySelector(".cart-recommended-wrapper").innerHTML = "";
+    doc.forEach((el)=>{
+      self.querySelector(".cart-recommended-wrapper").appendChild(el);
+    });
+    if(self.cartRecoSwiper){
+      self.cartRecoSwiper.update();
+    }
+  }
+}
+
+customElements.define('cart-recommended', CartRecommended);
+
 let mobileCartactive = true;
 window.addEventListener('resize', function(event){
   var newWidth = window.innerWidth;
@@ -81,6 +146,7 @@ class CartItemsAlt extends HTMLElement {
 
   updateQty(){
     this.closest('cart-items-alt').enableLoading();
+    let cartAllItem = this.closest('cart-all-item');
     let cartItem = this.closest('cart-items-alt');
     let bodyData = {
       id: cartItem.itemDetails.key,
@@ -102,7 +168,7 @@ class CartItemsAlt extends HTMLElement {
     })
     .then((state) => {
       this.closest('cart-items-alt').disableLoading();
-      if(cartItems.item_count==state.item_count){
+      if(cartAllItem.cardDetails.item_count==state.item_count){
         setTimeout(()=>{
           document.querySelectorAll(`cart-items-alt[data-item-key='${cartItem.itemDetails.key}'] .cart-item__error-text`).forEach((el)=> {
             el.innerHTML = window.cartStrings.quantityError.replace(
@@ -112,9 +178,8 @@ class CartItemsAlt extends HTMLElement {
           })
         }, 100)
       }
-      cartItems = state;
       document.querySelectorAll("cart-all-item").forEach((el)=>{
-        el.render();
+        el.render(state);
       })
     }) 
     .catch((error) => {
@@ -153,6 +218,7 @@ customElements.define('cart-items-alt', CartItemsAlt);
 class CartAllItem extends HTMLElement {
   constructor() {
     super();
+    this.cardDetails = {};
   }
 
   connectedCallback() {
@@ -182,8 +248,8 @@ class CartAllItem extends HTMLElement {
       return response.json();
     })
     .then((state) => {
-      cartItems = state;
-      self.render();
+      this.cardDetails = state;
+      self.render(state);
     }) 
     .catch((error) => {
       console.error('Error:', error);
@@ -201,7 +267,12 @@ class CartAllItem extends HTMLElement {
         id: 'cart-count--bubble',
         section: 'cart-icon-bubble',
         selector: '.cart-count-bubble'
-      }
+      },
+      {
+        id: 'cart-live-region-text',
+        section: 'cart-live-region-text',
+        selector: '.shopify-section'
+      },
     ];
   }
 
@@ -211,8 +282,9 @@ class CartAllItem extends HTMLElement {
       .querySelector(selector).innerHTML;
   }
 
-  render(){
+  render(cartItems){
     let self = this;
+    self.cardDetails = cartItems;
       self.querySelector("#cart-item-loader").innerHTML = "";
       cartItems.items.forEach((d)=>{
         let cartmediaVal = (window.innerWidth>989) ? 'desktop' : 'mobile';
@@ -243,6 +315,8 @@ class CartAllItem extends HTMLElement {
           el.innerHTML = self.getSectionInnerHTML(cartItems.sections[section.section], section.selector);
         })
       }));
+
+      self.closest('.cart--mainPage').querySelector('.cart--subTotalUSD').innerHTML = `$${(cartItems.original_total_price/100).toFixed(2)}`;
   }
 
   updateQty() {

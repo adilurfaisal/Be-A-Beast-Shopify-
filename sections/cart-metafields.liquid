@@ -1,0 +1,24 @@
+{% assign carthandlecont = "" %}
+{% for item in cart.items %}
+    {% assign handlepipe = item.product.handle | append: ',' %}
+    {% unless carthandlecont contains handlepipe %}
+    {% assign carthandlecont = carthandlecont | append: handlepipe %}
+    {% endunless %}
+{% endfor %}
+
+{% assign carthandlearr = carthandlecont | split: "," %}
+
+{% for handle in carthandlearr %}
+    {% assign metaProduct = all_products[handle] %}
+    {% for metadata in metaProduct.metafields.cart.cart_recommended_item.value %}
+        {% assign handlepipe = metadata.handle | append: ',' %}
+        {% unless carthandlecont contains handlepipe %}
+            {% assign carthandlecont = carthandlecont | append: handlepipe %}
+
+            <div class="swiper-slide product-{{metadata.handle}}" data-product-id="{{metadata.handle}}">
+            {% render 'product-card-alternative', product: metadata %}
+            </div>
+        {% endunless %}
+    {% endfor %}
+{% endfor %}
+

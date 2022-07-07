@@ -748,3 +748,8 @@ li[data-address] > h2 {
   margin-top: 1.5rem;
 }
 
+.top-border-nav {
+  width: 100%;
+  border: 1px solid;
+  border-image: linear-gradient(to left,rgba(217,217,217,0) 10%,rgba(0,0,0,.3) 50%,rgba(217,217,217,0) 90%) 50% 0 50% 0/1px 0px 0px 0px;
+}
