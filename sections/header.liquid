@@ -57,7 +57,7 @@
     transition: background 0.2s ease-in-out;
   }
   
-  .shopify-section-header-sticky .header {
+  .header {
     background: rgba(255, 255, 255, 0.4);
   }
 
@@ -69,7 +69,6 @@
 
   .menu-drawer-container {
     display: inline-block;
-    width: 100%;
   }
   
   .menu-drawer-container .mobile--icon svg {
@@ -216,8 +215,6 @@
                   }
                   
                   .header__icon.header__icon--menu {
-                    
-                    width: 100%;
                     position: relative;
                     
                   }
@@ -585,6 +582,8 @@
             {%- if request.page_type == 'index' -%}
               <h1 class="header__heading mobile-nav-active-hide">
             {%- endif -%}
+            
+              <div class="header--LogoDiv">
                 <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
                   {%- if section.settings.logo != blank -%}
                     {%- assign image_size = section.settings.logo_width | append: 'x' -%}
@@ -600,6 +599,7 @@
                     <span class="h2">{{ shop.name }}</span>
                   {%- endif -%}
                 </a>
+              </div>
             {%- if request.page_type == 'index' -%}
               </h1>
             {%- endif -%}
@@ -686,7 +686,7 @@
                 <svg style="width: 100%; height: 100%;" id="search" enable-background="new 0 0 96 96" height="512" viewBox="3 3 86 86" width="512" xmlns="http://www.w3.org/2000/svg"><path id="Search" d="m49.557 18.444c.781.781.781 2.047 0 2.828-.391.391-.902.586-1.414.586s-1.023-.195-1.414-.586c-7.02-7.019-18.438-7.019-25.457 0-.781.781-2.047.781-2.828 0s-.781-2.047 0-2.828c8.577-8.578 22.535-8.578 31.113 0zm40.443 63.556c0 2.137-.832 4.146-2.344 5.656-1.51 1.512-3.519 2.344-5.656 2.344s-4.146-.832-5.656-2.344l-21-21c-.781-.781-.781-2.047 0-2.828l2.828-2.828-4.435-4.435c-5.28 4.623-12.184 7.435-19.737 7.435-16.542 0-30-13.458-30-30s13.458-30 30-30 30 13.458 30 30c0 7.553-2.812 14.457-7.435 19.737l4.435 4.435 2.828-2.828c.781-.781 2.047-.781 2.828 0l21 21c1.512 1.51 2.344 3.519 2.344 5.656zm-30-48c0-14.336-11.663-26-26-26s-26 11.664-26 26 11.663 26 26 26 26-11.664 26-26zm26 48c0-1.068-.416-2.072-1.172-2.828l-19.586-19.586-5.656 5.656 19.586 19.586c1.512 1.512 4.145 1.512 5.656 0 .756-.756 1.172-1.76 1.172-2.828z"/></svg>
               </div>
 
-              <div class="search-pop-desk">
+              <div class="search-pop-desk nav--header">
                 <div class="top-border-nav">
                 </div>
                 {%- if settings.predictive_search_enabled -%}
@@ -740,14 +740,14 @@
                           {%- endif -%}
               </div>
 
-              <div class="icon--wishlist">
+              <div class="icon--wishlist menu--TabHover" data-tabhover="wishlist-nav">
                 <svg class="heart">
                   <use href="#heart"></use>
                 </svg>
                 <span class="wishlist--bubble hidden"></span>
               </div>
                             
-              <div class="wishlist-nav">
+              <div class="wishlist-nav nav--header menu--TabHover" data-tabhover="wishlist-nav">
 
                 <div class="top-border-nav">
                 </div>
@@ -782,7 +782,7 @@
                 </div>
               </div>
                             
-              <a href="#" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+              <a href="#" class="header__icon header__icon--cart link focus-inset menu--TabHover" id="cart-icon-bubble" data-tabhover="cart-nav-header">
                 {%- liquid
                   if cart == empty
                     render 'icon-cart-empty'
@@ -800,7 +800,7 @@
                   </div>
                 {%- endif -%}
               </a>  
-              <div class="cart-nav-header">
+              <div class="cart-nav-header nav--header menu--TabHover" data-tabhover="cart-nav-header">
                   <div class="top-border-nav">
                   </div>
                   <div class="cart-body">
@@ -879,19 +879,25 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
                             
       const menu_item = this.querySelectorAll('.list-menu>li.menu-item.parent-link');
       menu_item.forEach((mi) => {
-		mi.addEventListener("mouseout", function( event ) {
-			document.querySelector("header.header").style.height = "75px";
-		});
-		mi.addEventListener("mouseover", function( event ) {
-			let list_content = mi.querySelector(".list-menu-content");
-			if(list_content){
-        self.querySelector(".search-pop-desk").classList.remove('show');
-				let total_height = list_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
-				document.querySelector("header.header").style.height = (total_height+10)+"px";
-			}else{
-				document.querySelector("header.header").style.height = "75px";
-			}
-		});
+        mi.addEventListener("mouseout", function( event ) {
+          document.querySelector("header.header").style.height = "75px";
+          mi.classList.remove("open");
+        });
+        mi.addEventListener("mouseover", function( event ) {
+          let list_content = mi.querySelector(".list-menu-content");
+          menu_item.forEach((el)=>{
+            el.classList.remove("open");
+          });
+          if(list_content){
+            console.log(list_content.offsetHeight)
+            self.hideNavHeader();
+            let total_height = list_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
+            document.querySelector("header.header").style.height = (total_height+10)+"px";
+            mi.classList.add("open");
+          }else{
+            document.querySelector("header.header").style.height = "75px";
+          }
+        });
       });
                             
       this.querySelector('.mobile--icon').addEventListener("click", function( event ) {
@@ -899,7 +905,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
         if (header_el.classList.contains('menu-open')) {
             header_el.classList.remove('menu-open');
         }else{
-          self.querySelector(".search-pop-desk").classList.remove('show');
+          self.hideNavHeader();
           header_el.classList.add('menu-open');
         }
       });
@@ -938,7 +944,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
           });
           ["mouseover"].forEach((evt)=>{
             il.addEventListener(evt, function( event ) {
-              self.querySelector(".search-pop-desk").classList.remove('show');
+              self.hideNavHeader();
                 if(collection_img.indexOf('assets/no-image')!==-1){
                    list_menu_content.classList.add("unknown--thumbs");
                    return;       
@@ -954,42 +960,53 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
       });
 
-          // wishlist button
-          // icon--wishlist  wishlist-nav
-      		let wishlist_content =self.querySelector(".wishlist-nav");
-        	self.querySelector(".icon--wishlist").addEventListener("mouseout", function( event ) {
-                wishlist_content.classList.remove("show");
-      			document.querySelector("header.header").style.height = "75px";
-      		});
-        	wishlist_content.addEventListener("mouseout", function( event ) {
-                wishlist_content.classList.remove("show");
-      			document.querySelector("header.header").style.height = "75px";
-      		});
-      		wishlist_content.addEventListener("mouseover", function( event ) {
-      			if(wishlist_content){
-              self.querySelector(".search-pop-desk").classList.remove('show');
-              wishlistswiper.update();
-              wishlist_content.classList.add("show");
-      				let total_height = wishlist_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
-      				document.querySelector("header.header").style.height = (total_height+30)+"px";
-      			}else{
-              wishlist_content.classList.remove("show");
-      				document.querySelector("header.header").style.height = "75px";
-      			}
-      		});
-      		self.querySelector(".icon--wishlist").addEventListener("mouseover", function( event ) {
-      			if(wishlist_content){
-              self.querySelector(".search-pop-desk").classList.remove('show');
-              wishlistswiper.update();
-              wishlist_content.classList.add("show");
-      				let total_height = wishlist_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
-      				document.querySelector("header.header").style.height = (total_height+30)+"px";
-      			}else{
-              wishlist_content.classList.remove("show");
-      				document.querySelector("header.header").style.height = "75px";
-      			}
-      		});
 
+      const tabHovItems = this.querySelectorAll('.menu--TabHover');
+      tabHovItems.forEach((mi) => {
+        let tabhovcls = mi.getAttribute("data-tabhover");
+        mi.addEventListener("mouseover", function( event ) {
+          let tabhovcontent = self.querySelector(`.${tabhovcls}`);
+          if(tabhovcontent){
+            self.hideNavHeader();
+            let total_height = tabhovcontent.offsetHeight+document.querySelector(".header-top").offsetHeight;
+            document.querySelector("header.header").style.height = (total_height)+"px";
+            tabhovcontent.classList.add('show');
+          }else{
+            document.querySelector("header.header").style.height = "75px";
+          }
+        });
+        mi.addEventListener("mouseout", function( event ) {
+          let tabhovcontent = self.querySelector(`.${tabhovcls}`);
+          document.querySelector("header.header").style.height = "75px";
+          tabhovcontent.classList.remove('show');
+        });
+
+      });
+
+      this.querySelector(".menu-drawer-container").addEventListener("click", function(){
+        if(self.querySelector(".header").classList.contains("menu-open") && self.querySelector(".header__inline-menu .list-menu>li.menu-item.parent-link")){
+          self.querySelector(".header__inline-menu .list-menu>li.menu-item.parent-link").dispatchEvent(new Event('mouseover'));
+        }else if(self.querySelector(".header__inline-menu .list-menu>li.menu-item.parent-link.open")){
+          self.querySelector(".header__inline-menu .list-menu>li.menu-item.parent-link.open").dispatchEvent(new Event('mouseout'));
+        }
+      })
+
+
+/*
+          // cart button nav
+          self.querySelector(".icon--wishlist").addEventListener("click", function( event ) {
+            let wishlist_content =self.querySelector(".wishlist-nav");
+            if (wishlist_content.classList.contains('show')) {
+              wishlist_content.classList.remove('show');
+              document.querySelector("header.header").style.height = "75px";
+            }else{
+              self.hideNavHeader();
+              wishlist_content.classList.add('show');
+              let total_height = wishlist_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
+              document.querySelector("header.header").style.height = (total_height+30)+"px";
+            }
+      		});
+*/
 
           self.querySelector(".icon--wishlist .wishlist--bubble").addEventListener('DOMSubtreeModified', async function() {
             if(this.innerHTML=="") return;
@@ -1017,7 +1034,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
                 }
             });
           });
-
+/*
           // cart button nav
           self.querySelector("#cart-icon-bubble").addEventListener("click", function( event ) {
             let cartnav_content =self.querySelector(".cart-nav-header");
@@ -1025,23 +1042,25 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
               cartnav_content.classList.remove('show');
               document.querySelector("header.header").style.height = "75px";
             }else{
+              self.hideNavHeader();
               cartnav_content.classList.add('show');
               let total_height = cartnav_content.offsetHeight+document.querySelector(".header-top").offsetHeight;
               document.querySelector("header.header").style.height = (total_height+30)+"px";
             }
       		});
-
+*/
 
           // search for desktop pop
           self.querySelector(".header__search--desk").addEventListener("click", function( event ) {
               let search_el = self.querySelector(".search-pop-desk");
               if (search_el.classList.contains('show')) {
                 search_el.classList.remove('show');
-                  document.querySelector("header.header").style.height = "75px";
+                document.querySelector("header.header").style.height = "75px";
               }else{
+                self.hideNavHeader();
                 search_el.classList.add('show');
-                  document.querySelector("header.header").style.height = "140px";
-                  self.querySelector(".search-pop-desk input.search__input").focus();
+                document.querySelector("header.header").style.height = "140px";
+                self.querySelector(".search-pop-desk input.search__input").focus();
               }
               
       		});
@@ -1063,6 +1082,12 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
                             
       this.createObserver();
+    }
+
+    hideNavHeader(){
+      this.querySelectorAll(".nav--header").forEach((el)=>{
+        el.classList.remove('show');
+      })
     }
 
     disconnectedCallback() {
@@ -1289,14 +1314,12 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     border: 1px solid;
     border-image: linear-gradient(to left,rgba(217,217,217,0) 10%,rgba(0,0,0,.3) 50%,rgba(217,217,217,0) 90%) 50% 0 50% 0/1px 0px 0px 0px;
 }
-
 .header {
     display: flex !important;
     align-items: start !important;
     justify-content: space-between;
 	padding: 0px !important;
 	height: 75px;
-  max-height: 80vh;
 	transition: height 0.5s !important;
 }
 
@@ -1304,9 +1327,12 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 	height: 75px;
 	padding: 0px 24px;
 	width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .header-top > * {
+  flex: 1;
 }
 
 .header .header-top .header__inline-menu,
@@ -1339,6 +1365,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 }
 
 .header .list-menu-content {
+    max-height: 380px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -1425,18 +1452,17 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     padding-left: 0px !important;
 }
 
-.header .header-top ul.list-menu li.menu-item:hover .list-menu__item {
+.header .header-top ul.list-menu li.menu-item.open .list-menu__item {
     text-decoration-thickness: .2rem;
     text-decoration: underline;
     text-underline-offset: .3rem;
 }
 
-.header__menu-item:hover span{
+.header__menu-item.open span{
     text-decoration: none !important;
 }
 
-.header .header-top .header__inline-menu>ul.list-menu>li.menu-item:hover .list-menu-content{
-    max-height: 575px;
+.header .header-top .header__inline-menu>ul.list-menu>li.menu-item.open .list-menu-content{
     overflow-y: auto;
     top: 75px;
     opacity: 1;
@@ -1451,7 +1477,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
       transform: translate(-50%,0%);
       padding: 0px 50px;
     }
-    .header .header-top .header__inline-menu>ul.list-menu>li.menu-item:hover .list-menu-content{
+    .header .header-top .header__inline-menu>ul.list-menu>li.menu-item.open .list-menu-content{
       left: 50%;
     }
   }
@@ -1564,6 +1590,19 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 }
         
 @media only screen and (max-width: 989px){
+  .header {
+    max-height: 80vh;
+  }
+  .header.menu-open .header-top > *{
+    flex: unset;
+  }
+  .header.menu-open .header-top .header--LogoDiv{
+    display: none;
+  }
+  .header .header--LogoDiv{
+    display: flex;
+    justify-content: center;
+  }
     .list-child{
     	width: 100%;
         border: 0px solid !important;
@@ -1701,6 +1740,13 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 .wishlist-nav .wishlist-silder figure img{
     min-height: 160px;
 }
+
+.wishlist-nav .slider-control,
+.wishlist-nav .slider-control svg{
+  width: 25px;
+  height: 25px;
+}
+
 .wishlist-nav .slide-button-prev{
   position: absolute;
   top: 50%;
@@ -1716,7 +1762,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
 .cart-nav-header {
     position: absolute;
-    max-height: 610px;
+    max-height: 85vh;
     overflow-y: auto;
     overflow-x: hidden;
     left: -9999px;
@@ -1724,15 +1770,15 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     top: 200px;
     opacity: 0;
     z-index: -999;
-    padding: 12px 30px 0;
-    transition-property: top, width, opacity, z-index !important;
-    transition-duration: 0.5s, 0.1s, 0.5s, 0.5s !important;
-    transition-delay: 0s, 0s, 0s, 0s !important;
+    padding: 22px 30px 0;
+    transition-property: top!important;
+    transition-duration: .5s!important;
+    transition-delay: 0s!important;
     max-width: 1300px;
 }
 
 .cart-nav-header.show {
-    top: 60px;
+    top: 50px;
     opacity: 1;
     z-index: 7;
     left: 0;
@@ -1758,7 +1804,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
 @media only screen and (max-width: 989px){
   .cart-nav-header {
-    padding: 0 15px;
+    padding: 22px 15px 0;
   }
   .wishlist-nav{
     padding: 22px 5px 0;
@@ -1772,8 +1818,9 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-bottom: 20px;
 }
-        
+
 .cart-nav-header .cart-body .main-cart{
     width: 60%;
     border: 1px solid;
@@ -1794,6 +1841,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
           
   .cart-nav-header .cart-body .secondary-cart{
       width: 100%;
+      padding-bottom: 10px;
   }
 }
 
@@ -1843,7 +1891,6 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 }
 
 .mobile--icon.search-icon-wrapper{
-  width: 100%;
   height: 100%;
   padding: 0;
   margin-left: 10px;

@@ -127,7 +127,7 @@
 
           <div class="items--col items--center">
             <div class="cart-item--price">
-              ${original_price}
+              <span>$</span><span>${original_price}</span>
             </div>
           </div>
 
@@ -152,7 +152,7 @@
 
           <div class="items--col items--center">
             <div class="cart-item--price cart-item--totalPrice">
-              ${original_line_price}
+              <span>$</span><span>${original_line_price}</span>
             </div>
 
             <div class="loading-overlay">
@@ -244,6 +244,31 @@
   </div>
 
 {%- style -%}
+
+.cart--Mini #cart-item-loader{
+  max-height: 350px;
+  overflow: auto;
+}
+
+.cart--Mini #cart-item-loader::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.cart--Mini #cart-item-loader::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+.cart--Mini #cart-item-loader::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
 
 .cart--Mini .cart--HeadText{
   font-size: 18px;

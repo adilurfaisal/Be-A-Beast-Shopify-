@@ -290,7 +290,14 @@ class ProductCardVariants extends HTMLElement {
   }
 
   renderCartBubble(data) {
-    let total = 0
+    let total = 0;
+
+    if(document.querySelector("cart-all-item")){
+      document.querySelectorAll("cart-all-item").forEach((el)=>{
+        el.fetchRender();
+      })
+    }
+
     this.getCart().then(cart => {
       cart.items.forEach(item => {
         total = total + item.quantity

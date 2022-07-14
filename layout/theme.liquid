@@ -211,6 +211,7 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'product-card-alternative.css' | asset_url | stylesheet_tag }}
     {{ 'product-card-meta.css' | asset_url | stylesheet_tag }}
+    {{ 'component-cart-item-rec.css' | asset_url | stylesheet_tag }}
     
     {% if template contains 'product' or page.handle == 'size-chart' %}
       {{ 'size-guide.css' | asset_url | stylesheet_tag  }}
@@ -226,7 +227,6 @@
     {%- if settings.predictive_search_enabled -%}
       <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
     {%- endif -%}
-    <link rel="stylesheet" href="{{ 'component-cart-item-rec.css' | asset_url }}" media="print" onload="this.media='all'">
 
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     if (Shopify.designMode) {

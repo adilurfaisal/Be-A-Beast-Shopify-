@@ -226,6 +226,9 @@
       grid-template-columns: 100px minmax(100px, auto) minmax(30px, 150px);
       background: #EEEEEE;
       margin-bottom: 15px;
+    }  
+    .cart--header-you{
+      font-size: 20px;
     }
     .cart-items--header{
       display: none;
