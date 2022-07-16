@@ -1,0 +1,33 @@
+
+<h1>Announcement Top</h1>
+
+
+{% schema %}
+{
+  "name": "Announcement Top",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+        {
+        "type": "text",
+        "name": "announcement_texts",
+        "settings": [
+                {
+                    "type": "richtext",
+                    "id": "subtext",
+                    "label": "Text"
+                }
+            ]
+        }
+    ],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "login_button_active",
+            "default": true,
+            "label": "Login Button"
+        }
+    ]
+}
+
+{% endschema %}

@@ -1,3 +1,5 @@
+{% assign header_height = "90px" %}
+
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -31,7 +33,7 @@
   }
   
   .header-wrapper.hide--to-top {
-    top: -80px;
+    top: -90px;
   }
   
   .bg--blur {
@@ -184,6 +186,24 @@
       <div class="header--wrapper">
         <div class="bg--blur">
           <header class="header header--{{ section.settings.logo_position }}{% if section.settings.menu != blank %} header--has-menu{% endif %}">
+            <div class="announce-top-bar">
+              <div class="announce-swiper">
+                <div class="swiper-wrapper">
+                  {% for block in section.blocks %}
+                  <div class="swiper-slide">
+                    {% if block.settings.announcement_url == "#" %}
+                      {{ block.settings.announcement_texts }}
+                    {% else %}
+                      <a href="{{ block.settings.announcement_url }}">{{ block.settings.announcement_texts }}</a>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="login-div">
+                <a class="login-btn" href="account/login">Login</a>
+              </div>
+            </div>
             <div class="header-top">
             {%- if section.settings.menu != blank -%}
               <header-drawer data-breakpoint="tablet">
@@ -614,6 +634,8 @@
                           <span {% if link.current %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                         </a>
                       <div class="list-menu-content">
+                        <div class="top-border-nav">
+                        </div>
                         <ul class="list-child">
                           {%- for childlink in link.links -%}
                           {% if childlink.title contains 'Default-Collection-1' %}
@@ -827,7 +849,11 @@
 {%- render 'cart-notification', color_scheme: section.settings.color_scheme -%}
 
 {% javascript %}
-
+//announce-swiper
+var swiper = new Swiper('.announce-swiper', {
+	// init: false,
+	slidesPerView : 'auto'
+});
 
 var wishlistswiper = new Swiper(".wishlist-swiper", {
   slidesPerView: 2,
@@ -880,7 +906,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
       const menu_item = this.querySelectorAll('.list-menu>li.menu-item.parent-link');
       menu_item.forEach((mi) => {
         mi.addEventListener("mouseout", function( event ) {
-          document.querySelector("header.header").style.height = "75px";
+          document.querySelector("header.header").style.height = "90px";
           mi.classList.remove("open");
         });
         mi.addEventListener("mouseover", function( event ) {
@@ -895,7 +921,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
             document.querySelector("header.header").style.height = (total_height+10)+"px";
             mi.classList.add("open");
           }else{
-            document.querySelector("header.header").style.height = "75px";
+            document.querySelector("header.header").style.height = "90px";
           }
         });
       });
@@ -972,12 +998,12 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
             document.querySelector("header.header").style.height = (total_height)+"px";
             tabhovcontent.classList.add('show');
           }else{
-            document.querySelector("header.header").style.height = "75px";
+            document.querySelector("header.header").style.height = "90px";
           }
         });
         mi.addEventListener("mouseout", function( event ) {
           let tabhovcontent = self.querySelector(`.${tabhovcls}`);
-          document.querySelector("header.header").style.height = "75px";
+          document.querySelector("header.header").style.height = "90px";
           tabhovcontent.classList.remove('show');
         });
 
@@ -998,7 +1024,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
             let wishlist_content =self.querySelector(".wishlist-nav");
             if (wishlist_content.classList.contains('show')) {
               wishlist_content.classList.remove('show');
-              document.querySelector("header.header").style.height = "75px";
+              document.querySelector("header.header").style.height = "90px";
             }else{
               self.hideNavHeader();
               wishlist_content.classList.add('show');
@@ -1040,7 +1066,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
             let cartnav_content =self.querySelector(".cart-nav-header");
             if (cartnav_content.classList.contains('show')) {
               cartnav_content.classList.remove('show');
-              document.querySelector("header.header").style.height = "75px";
+              document.querySelector("header.header").style.height = "90px";
             }else{
               self.hideNavHeader();
               cartnav_content.classList.add('show');
@@ -1055,7 +1081,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
               let search_el = self.querySelector(".search-pop-desk");
               if (search_el.classList.contains('show')) {
                 search_el.classList.remove('show');
-                document.querySelector("header.header").style.height = "75px";
+                document.querySelector("header.header").style.height = "90px";
               }else{
                 self.hideNavHeader();
                 search_el.classList.add('show');
@@ -1072,10 +1098,10 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
             document.querySelector("header.header").style.height = "130px";
       		});
         	self.querySelector(".search-icon-wrapper").addEventListener("mouseout", function( event ) {
-            document.querySelector("header.header").style.height = "75px";
+            document.querySelector("header.header").style.height = "90px";
       		});
         	self.querySelector(".search-icon-wrapper .header-title--close .modal__close-button").addEventListener("click", function( event ) {
-            document.querySelector("header.header").style.height = "75px";
+            document.querySelector("header.header").style.height = "90px";
       		});
 
           
@@ -1205,7 +1231,33 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 {
   "name": "t:sections.header.name",
   "class": "section-header",
+  "blocks": [
+      {
+      "type": "text",
+      "name": "announcement_block",
+      "settings": [
+              {
+                  "type": "text",
+                  "id": "announcement_texts",
+                  "default": "Announcement Top",
+                  "label": "Text"
+              },
+              {
+                  "type": "text",
+                  "id": "announcement_url",
+                  "default": "#",
+                  "label": "URL"
+              }
+          ]
+      }
+  ],
   "settings": [
+    {
+        "type": "checkbox",
+        "id": "login_button_active",
+        "default": true,
+        "label": "Login Button"
+    },
     {
       "type": "select",
       "id": "color_scheme",
@@ -1309,22 +1361,42 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
 
 {% stylesheet %}
+.announce-top-bar{
+  display: flex;
+  margin: 0 30px;
+  border-bottom: 1px solid #cecdcd;
+}
+
+.announce-top-bar .announce-swiper{
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.announce-top-bar .login-btn{
+  font-style: normal;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
 .top-border-nav {
     width: 100%;
     border: 1px solid;
     border-image: linear-gradient(to left,rgba(217,217,217,0) 10%,rgba(0,0,0,.3) 50%,rgba(217,217,217,0) 90%) 50% 0 50% 0/1px 0px 0px 0px;
 }
 .header {
-    display: flex !important;
-    align-items: start !important;
-    justify-content: space-between;
-	padding: 0px !important;
-	height: 75px;
-	transition: height 0.5s !important;
+  display: flex !important;
+  align-items: start !important;
+  justify-content: start;
+  padding: 0px !important;
+  height: 90px;
+  transition: height 0.5s !important;
+  flex-direction: column;
 }
 
 .header .header-top{
-	height: 75px;
+	height: 60px;
 	padding: 0px 24px;
 	width: 100%;
   display: flex;
@@ -1333,6 +1405,10 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 }
 .header .header-top > * {
   flex: 1;
+}
+
+.header .menu--TabHover{
+  max-height: 75vh;
 }
 
 .header .header-top .header__inline-menu,
@@ -1375,9 +1451,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
     top: 200px;
 	opacity: 0;
     z-index: -999;
-    padding: 0px 30px;
-	border: 1px solid;
-    border-image: linear-gradient(to left,rgba(217, 217, 217, 0) 10%, rgba(0,0,0,0.3) 50%, rgba(217, 217, 217, 0) 90%) 50% 0 50% 0/1px 0px 0px 0px;
+    padding: 22px 30px 0;
 	transition: top 0.5s !important;
   max-width: 1300px;
   width: 0px;
@@ -1394,7 +1468,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
 .mega-thumbs-container{
     width: 40%;
-    min-height: 100px;
+    min-height: 90px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -1464,7 +1538,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 
 .header .header-top .header__inline-menu>ul.list-menu>li.menu-item.open .list-menu-content{
     overflow-y: auto;
-    top: 75px;
+    top: 65px;
     opacity: 1;
     z-index: 99;
     width: 100%;
@@ -1708,7 +1782,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 }
 
 .wishlist-nav.show {
-    top: 50px;
+    top: 65px;
     opacity: 1;
     z-index: 7;
     left: 0;
@@ -1778,7 +1852,7 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 }
 
 .cart-nav-header.show {
-    top: 50px;
+    top: 65px;
     opacity: 1;
     z-index: 7;
     left: 0;
