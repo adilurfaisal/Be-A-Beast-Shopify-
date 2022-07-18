@@ -189,15 +189,21 @@
             <div class="announce-top-bar">
               <div class="announce-swiper">
                 <div class="swiper-wrapper">
-                  {% for block in section.blocks %}
-                  <div class="swiper-slide">
-                    {% if block.settings.announcement_url == "#" %}
-                      {{ block.settings.announcement_texts }}
-                    {% else %}
-                      <a href="{{ block.settings.announcement_url }}">{{ block.settings.announcement_texts }}</a>
-                    {% endif %}
-                  </div>
-                  {% endfor %}
+                  {% if section.blocks.size > 0 %}
+                    {% for block in section.blocks %}
+                    <div class="swiper-slide">
+                      {% if block.settings.announcement_url == "#" %}
+                        {{ block.settings.announcement_texts }}
+                      {% else %}
+                        <a href="{{ block.settings.announcement_url }}">{{ block.settings.announcement_texts }}</a>
+                      {% endif %}
+                    </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="swiper-slide">
+                      asdsad
+                    </div>
+                  {% endif %}
                 </div>
               </div>
               <div class="login-div">
@@ -637,7 +643,10 @@
                         <div class="top-border-nav">
                         </div>
                         <ul class="list-child">
+                          <div class="list-col">
+                          {% assign colran = 0 %}
                           {%- for childlink in link.links -%}
+                          {% assign colran = colran | plus: 1 %}
                           {% if childlink.title contains 'Default-Collection-1' %}
                             {%- assign chlid_collection_name = childlink.url | replace: '/collections/', '' -%}
                             {% assign Default_Collection_1 = collections[chlid_collection_name] %}
@@ -654,7 +663,12 @@
                               {%- endfor -%}
                             </ul>
                           </li>
+                          {% assign colranmodulo = colran | modulo: 2 %}
+                          {% if colranmodulo == 0 %}
+                            </div><div class="list-col">
+                          {% endif %}
                           {%- endfor -%}
+                          </div>
                         </ul>
                         <div class="mega-thumbs-container">
                           <div class="main--thumbs thumbs--images" data-collection-url="{{ Default_Collection_1.url }}" data-collection-products="{{ Default_Collection_1.products_count }}" data-collection-title="{{ Default_Collection_1.title }}" data-collection-img="{{ Default_Collection_1.image | img_url: 'medium' }}">
@@ -850,9 +864,13 @@
 
 {% javascript %}
 //announce-swiper
-var swiper = new Swiper('.announce-swiper', {
+var announceswiper = new Swiper('.announce-swiper', {
 	// init: false,
-	slidesPerView : 'auto'
+  autoplay: {
+    delay: 20000,
+  },
+	slidesPerView : 1,
+  loop: true
 });
 
 var wishlistswiper = new Swiper(".wishlist-swiper", {
@@ -1363,13 +1381,24 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 {% stylesheet %}
 .announce-top-bar{
   display: flex;
-  margin: 0 30px;
+  margin: 0 1%;
   border-bottom: 1px solid #cecdcd;
+  width: 98%;
 }
 
 .announce-top-bar .announce-swiper{
   overflow: hidden;
   cursor: pointer;
+  width: 100%;
+}
+
+.announce-top-bar .announce-swiper .swiper-slide,
+.announce-top-bar .announce-swiper .swiper-slide a{
+  font-style: normal;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 .announce-top-bar .login-btn{
@@ -1464,6 +1493,12 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
 .list-child{
 	width: 60%;
 	justify-content: space-between;
+}
+.list-child > .list-col{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 50%;
 }
 
 .mega-thumbs-container{
@@ -1679,7 +1714,11 @@ var wishlistswiper = new Swiper(".wishlist-swiper", {
   }
     .list-child{
     	width: 100%;
-        border: 0px solid !important;
+      border: 0px solid !important;
+    }
+    .list-child>.list-col {
+      flex-direction: column;
+      justify-content: start;
     }
     .mega-thumbs-container{
         width: 100%;
